@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AtomicInteger源码分析——基于CAS的乐观锁实现 | Hexo</title>
+  <meta name="keywords" content=" java , jdk ">
+  <meta name="description" content="AtomicInteger源码分析——基于CAS的乐观锁实现 | Hexo">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="var QZONE &#x3D; window.QZONE || {}; 	function imagezoom(imgobj, box_w, box_h) { 		var src_w &#x3D; imgobj.width; 		var src_h &#x3D; imgobj.height; 		var r1 &#x3D; src_w &#x2F; src_h, r2 &#x3D; box_w &#x2F; box_h; 		v">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://jmw.wiki/404.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="var QZONE &#x3D; window.QZONE || {}; 	function imagezoom(imgobj, box_w, box_h) { 		var src_w &#x3D; imgobj.width; 		var src_h &#x3D; imgobj.height; 		var r1 &#x3D; src_w &#x2F; src_h, r2 &#x3D; box_w &#x2F; box_h; 		v">
+<meta property="og:image" content="http://qzone.qq.com/gy/404/style/image/logo_tencentvolunteers.png">
+<meta property="og:image" content="http://qzone.qq.com/gy/404/style/image/logo_baobeihuijia.png">
+<meta property="article:published_time" content="2020-04-05T06:29:00.927Z">
+<meta property="article:modified_time" content="2020-04-04T14:21:38.132Z">
+<meta property="article:author" content="Cheng Chen">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://qzone.qq.com/gy/404/style/image/logo_tencentvolunteers.png">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>Cheng Chen</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/scdxcc" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="csdn" href="https://blog.csdn.net/qfycc92" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-csdn"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:scdxcc@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(21)</small></div></li>
+    
+        
+            
+            <li><div data-rel="java"><i class="fold iconfont icon-right"></i>java<small>(17)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="jdk源码">jdk源码<small>(7)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="javaWeb">javaWeb<small>(10)</small></div>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+            <li><div data-rel="工具">工具<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="21">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://blog.csdn.net/qfycc92">csdn</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="以 in: 开头进行全文搜索" />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color5">java</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">jdk</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">javaWeb</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">xml</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">jsp</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">http</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">maven</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">shell</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">svn</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="java jdk源码 "
+           href="/2015/05/05/ArrayBlockingQueue/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="ArrayBlockingQueue 源码阅读与分析">ArrayBlockingQueue 源码阅读与分析</span>
+            <span class="post-date" title="2015-05-05 13:37:00">2015/05/05</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/04/15/ArrayList%E7%9A%84%E5%8A%A8%E6%80%81%E6%89%A9%E5%AE%B9%E7%9A%84%E5%AE%9E%E7%8E%B0/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="ArrayList的动态扩容的实现">ArrayList的动态扩容的实现</span>
+            <span class="post-date" title="2015-04-15 19:37:00">2015/04/15</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/05/10/AtomicInteger/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="AtomicInteger源码分析——基于CAS的乐观锁实现">AtomicInteger源码分析——基于CAS的乐观锁实现</span>
+            <span class="post-date" title="2015-05-10 12:14:53">2015/05/10</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/04/28/ArrayList%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="ArrayList的序列化与反序列化">ArrayList的序列化与反序列化</span>
+            <span class="post-date" title="2015-04-28 19:17:00">2015/04/28</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/07/04/CopyOnWriteArrayList/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="CopyOnWriteArrayList 源码阅读与分析">CopyOnWriteArrayList 源码阅读与分析</span>
+            <span class="post-date" title="2015-07-04 12:14:44">2015/07/04</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/05/19/HashMap%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E5%8F%8A%E5%86%B2%E7%AA%81%E5%A4%84%E7%90%86%E7%9A%84%E7%BB%86%E8%8A%82/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="HashMap源码分析及冲突处理的细节">HashMap源码分析及冲突处理的细节</span>
+            <span class="post-date" title="2015-05-19 12:14:53">2015/05/19</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/10/Java%20web%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%85%AD%E2%80%94%E2%80%94%20Cookie%E4%B8%8ESession/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结六—— Cookie 与 Session">Java web 基础总结六—— Cookie 与 Session</span>
+            <span class="post-date" title="2015-05-10 12:14:53">2015/05/10</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/12/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%83%E2%80%94%E2%80%94Filter%E4%B8%8EListener/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结七—— Filter 与 Listener">Java web 基础总结七—— Filter 与 Listener</span>
+            <span class="post-date" title="2015-05-12 13:38:50">2015/05/12</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/06/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%80%E2%80%94%E2%80%94xml%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb,xml"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结一——xml基础">Java web基础总结一——xml基础</span>
+            <span class="post-date" title="2015-05-06 13:18:28">2015/05/06</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/08/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%89%E2%80%94%E2%80%94JavaWeb%E6%9C%8D%E5%8A%A1%E5%99%A8/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结三—— java web 服务器">Java web基础总结三—— java web 服务器</span>
+            <span class="post-date" title="2015-05-08 13:32:26">2015/05/08</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/17/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B9%9D%E2%80%94%E2%80%94jsp%E6%A0%87%E7%AD%BE/"
+           data-tag="java,javaWeb,jsp"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结九—— jsp标签">Java web基础总结九—— jsp标签</span>
+            <span class="post-date" title="2015-05-17 12:54:31">2015/05/17</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/10/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%BA%94%E2%80%94%E2%80%94%20HttpServletRequest%E4%B8%8EHttpServletResponse/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结五—— HttpServletRequest 与 HttpServletResponse">Java web 基础总结五—— HttpServletRequest 与 HttpServletResponse</span>
+            <span class="post-date" title="2015-05-10 12:14:53">2015/05/10</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/07/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%BA%8C%E2%80%94%E2%80%94http%E5%8D%8F%E8%AE%AE/"
+           data-tag="java,javaWeb,http"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结二——http协议">Java web基础总结二——http协议</span>
+            <span class="post-date" title="2015-05-07 16:19:28">2015/05/07</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/12/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%85%AB%E2%80%94%E2%80%94jsp%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结八—— jsp基础">Java web基础总结八—— jsp基础</span>
+            <span class="post-date" title="2015-05-12 13:38:50">2015/05/12</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/17/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%8D%81%E2%80%94%E2%80%94jspEL%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="java,javaWeb,jsp"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结十—— jsp EL表达式">Java web基础总结十—— jsp EL表达式</span>
+            <span class="post-date" title="2015-05-17 12:54:31">2015/05/17</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/05/25/jdk%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E4%B9%8B%E2%80%94%E2%80%94String%E7%B1%BB/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="jdk源码阅读之——String类">jdk源码阅读之——String类</span>
+            <span class="post-date" title="2015-05-25 13:37:00">2015/05/25</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/09/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%9B%9B%E2%80%94%E2%80%94Servlet%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结四——Servlet基础">Java web基础总结四——Servlet基础</span>
+            <span class="post-date" title="2015-05-09 13:04:05">2015/05/09</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2015/05/25/maven%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"
+           data-tag="maven"
+           data-author="" >
+            <span class="post-title" title="maven使用手册">maven使用手册</span>
+            <span class="post-date" title="2015-05-25 13:37:00">2015/05/25</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2015/07/25/shell%E8%84%9A%E6%9C%AC%E6%9B%BF%E6%8D%A2%E7%BC%96%E8%BE%91jar%E5%8C%85%E7%9A%84%E6%96%87%E4%BB%B6/"
+           data-tag="shell"
+           data-author="" >
+            <span class="post-title" title="shell 脚本替换，编辑jar包">shell 脚本替换，编辑jar包</span>
+            <span class="post-date" title="2015-07-25 13:37:00">2015/07/25</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2015/05/25/svn%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"
+           data-tag="svn"
+           data-author="" >
+            <span class="post-title" title="svn使用手册">svn使用手册</span>
+            <span class="post-date" title="2015-05-25 13:37:00">2015/05/25</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2015/07/25/shell%E8%84%9A%E6%9C%AC%E7%A9%BA%E7%99%BD%E5%AD%97%E7%AC%A6%E9%97%AE%E9%A2%98/"
+           data-tag="shell"
+           data-author="" >
+            <span class="post-title" title="shell 脚本 M-BM- 字符问题">shell 脚本 M-BM- 字符问题</span>
+            <span class="post-date" title="2015-07-25 13:37:00">2015/07/25</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-AtomicInteger" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">AtomicInteger源码分析——基于CAS的乐观锁实现</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="java">java</a>/
+            
+                <a  data-rel="jdk源码">jdk源码</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color5">java</a>
+            
+            <a class="color4">jdk</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-04-05 23:29:58'>2015-05-10 12:14</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#AtomicInteger-源码分析——基于-CAS-的乐观锁实现"><span class="toc-text">AtomicInteger 源码分析——基于 CAS 的乐观锁实现</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-悲观锁与乐观锁"><span class="toc-text">1. 悲观锁与乐观锁</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-java-中-CAS-的实现"><span class="toc-text">2.   java 中 CAS 的实现</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-AtomicInteger-的实现。"><span class="toc-text">3.  AtomicInteger 的实现。</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="AtomicInteger-源码分析——基于-CAS-的乐观锁实现"><a href="#AtomicInteger-源码分析——基于-CAS-的乐观锁实现" class="headerlink" title="AtomicInteger 源码分析——基于 CAS 的乐观锁实现"></a>AtomicInteger 源码分析——基于 CAS 的乐观锁实现</h4><h5 id="1-悲观锁与乐观锁"><a href="#1-悲观锁与乐观锁" class="headerlink" title="1. 悲观锁与乐观锁"></a>1. 悲观锁与乐观锁</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们都知道，cpu 是时分复用的，也就是把 cpu 的时间片，分配给不同的 thread/process 轮流执行，时间片与时间片之间，需要进行 cpu 切换，也就是会发生进程的切换。切换涉及到清空寄存器，缓存数据。然后重新加载新的 thread 所需数据。当一个线程被挂起时，加入到阻塞队列，在一定的时间或条件下，在通过 notify()，notifyAll()唤醒回来。在某个资源不可用的时候，就将 cpu 让出，把当前等待线程切换为阻塞状态。等到资源(比如一个共享数据）可用了，那么就将线程唤醒，让他进入 runnable 状态等待 cpu 调度。这就是典型的悲观锁的实现。独占锁是一种悲观锁，synchronized 就是一种独占锁，它假设最坏的情况，并且只有在确保其它线程不会造成干扰的情况下执行，会导致其它所有需要锁的线程挂起，等待持有锁的线程释放锁。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，由于在进程挂起和恢复执行过程中存在着很大的开销。当一个线程正在等待锁时，它不能做任何事，所以悲观锁有很大的缺点。举个例子，如果一个线程需要某个资源，但是这个资源的占用时间很短，当线程第一次抢占这个资源时，可能这个资源被占用，如果此时挂起这个线程，可能立刻就发现资源可用，然后又需要花费很长的时间重新抢占锁，时间代价就会非常的高。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所以就有了乐观锁的概念，他的核心思路就是，每次不加锁而是假设没有冲突而去完成某项操作，如果因为冲突失败就重试，直到成功为止。在上面的例子中，某个线程可以不让出 cpu,而是一直 while 循环，如果失败就重试，直到成功为止。所以，当数据争用不严重时，乐观锁效果更好。比如 CAS 就是一种乐观锁思想的应用。</p>
+<h5 id="2-java-中-CAS-的实现"><a href="#2-java-中-CAS-的实现" class="headerlink" title="2.   java 中 CAS 的实现"></a>2.   java 中 CAS 的实现</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CAS 就是 Compare and Swap 的意思，比较并操作。很多的 cpu 直接支持 CAS 指令。CAS 是项乐观锁技术，当多个线程尝试使用 CAS 同时更新同一个变量时，只有其中一个线程能更新变量的值，而其它线程都失败，失败的线程并不会被挂起，而是被告知这次竞争中失败，并可以再次尝试。CAS 有 3 个操作数，内存值 V，旧的预期值 A，要修改的新值 B。当且仅当预期值 A 和内存值 V 相同时，将内存值 V 修改为 B，否则什么都不做。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JDK1.5 中引入了底层的支持，在 int、long 和对象的引用等类型上都公开了 CAS 的操作，并且 JVM 把它们编译为底层硬件提供的最有效的方法，在运行 CAS 的平台上，运行时把它们编译为相应的机器指令。在 java.util.concurrent.atomic 包下面的所有的原子变量类型中，比如 AtomicInteger，都使用了这些底层的 JVM 支持为数字类型的引用类型提供一种高效的 CAS 操作。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 CAS 操作中，会出现 ABA 问题。就是如果 V 的值先由 A 变成 B，再由 B 变成 A，那么仍然认为是发生了变化，并需要重新执行算法中的步骤。有简单的解决方案：不是更新某个引用的值，而是更新两个值，包括一个引用和一个版本号，即使这个值由 A 变为 B，然后为变为 A，版本号也是不同的。AtomicStampedReference 和 AtomicMarkableReference 支持在两个变量上执行原子的条件更新。AtomicStampedReference 更新一个“对象-引用”二元组，通过在引用上加上“版本号”，从而避免 ABA 问题，AtomicMarkableReference 将更新一个“对象引用-布尔值”的二元组。</p>
+<h5 id="3-AtomicInteger-的实现。"><a href="#3-AtomicInteger-的实现。" class="headerlink" title="3.  AtomicInteger 的实现。"></a>3.  AtomicInteger 的实现。</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicInteger 是一个支持原子操作的 Integer 类，就是保证对 AtomicInteger 类型变量的增加和减少操作是原子性的，不会出现多个线程下的数据不一致问题。如果不使用 AtomicInteger，要实现一个按顺序获取的 ID，就必须在每次获取时进行加锁操作，以避免出现并发时获取到同样的 ID 的现象。</p>
+<p>接下来通过源代码来看 AtomicInteger 具体是如何实现的原子操作。</p>
+<p>首先看 incrementAndGet() 方法，下面是具体的代码。</p>
+<pre><code class="java">public final int incrementAndGet() {
+        for (;;) {
+            int current = get();
+            int next = current + 1;
+            if (compareAndSet(current, next))
+                return next;
+        }
+    }</code></pre>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过源码，可以知道，这个方法的做法为先获取到当前的 value 属性值，然后将 value 加 1，赋值给一个局部的 next 变量，然而，这两步都是非线程安全的，但是内部有一个死循环，不断去做 compareAndSet 操作，直到成功为止，也就是修改的根本在 compareAndSet 方法里面，compareAndSet()方法的代码如下：</p>
+<pre><code class="java">public final boolean compareAndSet(int expect, int update) {
+        return unsafe.compareAndSwapInt(this, valueOffset, expect, update);
+    }</code></pre>
+<p>compareAndSet()方法调用的 compareAndSwapInt()方法的声明如下，是一个 native 方法。</p>
+<p>public final native boolean compareAndSwapInt(Object var1, long var2, int var4, intvar5);</p>
+<p>compareAndSet 传入的为执行方法时获取到的 value 属性值，next 为加 1 后的值， compareAndSet 所做的为调用 Sun 的 UnSafe 的 compareAndSwapInt 方法来完成，此方法为 native 方法，compareAndSwapInt 基于的是 CPU 的 CAS 指令来实现的。所以基于 CAS 的操作可认为是无阻塞的，一个线程的失败或挂起不会引起其它线程也失败或挂起。并且由于 CAS 操作是 CPU 原语，所以性能比较好。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类似的，还有 decrementAndGet()方法。它和 incrementAndGet()的区别是将 value 减 1，赋值给 next 变量。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AtomicInteger 中还有 getAndIncrement() 和 getAndDecrement() 方法，他们的实现原理和上面的两个方法完全相同，区别是返回值不同，前两个方法返回的是改变之后的值，即 next。而这两个方法返回的是改变之前的值，即 current。还有很多的其他方法，就不列举了。</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章指出任何有错误或不够清晰的表达。欢迎邮件讨论 scdxcc@gmail.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>AtomicInteger源码分析——基于CAS的乐观锁实现</p>
+    
+    <p><span class="copy-title">本文作者:</span><a  title="Cheng Chen">Cheng Chen</a></p>
+    <p><span class="copy-title">发布时间:</span>2015-05-10, 12:14:53</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-05, 23:29:58</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2015/05/10/AtomicInteger/" title="AtomicInteger源码分析——基于CAS的乐观锁实现">https://jmw.wiki/2015/05/10/AtomicInteger/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '',
+            clientSecret: '',
+            repo: 'scdxcc.github.io',
+            owner: 'scdxcc',
+            admin: ['scdxcc'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2014-2020 scucc</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#java','#jdk','#javaWeb','#xml','#jsp','#http','#maven','#shell','#svn',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #100e0e;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #434346;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

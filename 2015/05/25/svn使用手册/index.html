@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>svn使用手册 | Hexo</title>
+  <meta name="keywords" content=" svn ">
+  <meta name="description" content="svn使用手册 | Hexo">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="var QZONE &#x3D; window.QZONE || {}; 	function imagezoom(imgobj, box_w, box_h) { 		var src_w &#x3D; imgobj.width; 		var src_h &#x3D; imgobj.height; 		var r1 &#x3D; src_w &#x2F; src_h, r2 &#x3D; box_w &#x2F; box_h; 		v">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://jmw.wiki/404.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="var QZONE &#x3D; window.QZONE || {}; 	function imagezoom(imgobj, box_w, box_h) { 		var src_w &#x3D; imgobj.width; 		var src_h &#x3D; imgobj.height; 		var r1 &#x3D; src_w &#x2F; src_h, r2 &#x3D; box_w &#x2F; box_h; 		v">
+<meta property="og:image" content="http://qzone.qq.com/gy/404/style/image/logo_tencentvolunteers.png">
+<meta property="og:image" content="http://qzone.qq.com/gy/404/style/image/logo_baobeihuijia.png">
+<meta property="article:published_time" content="2020-04-05T06:29:00.927Z">
+<meta property="article:modified_time" content="2020-04-04T14:21:38.132Z">
+<meta property="article:author" content="Cheng Chen">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://qzone.qq.com/gy/404/style/image/logo_tencentvolunteers.png">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>Cheng Chen</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/scdxcc" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="csdn" href="https://blog.csdn.net/qfycc92" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-csdn"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:scdxcc@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(21)</small></div></li>
+    
+        
+            
+            <li><div data-rel="java"><i class="fold iconfont icon-right"></i>java<small>(17)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="jdk源码">jdk源码<small>(7)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="javaWeb">javaWeb<small>(10)</small></div>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+            <li><div data-rel="工具">工具<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="21">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://blog.csdn.net/qfycc92">csdn</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="以 in: 开头进行全文搜索" />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color5">java</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">jdk</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">javaWeb</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">xml</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">jsp</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">http</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">maven</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">shell</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">svn</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="java jdk源码 "
+           href="/2015/05/05/ArrayBlockingQueue/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="ArrayBlockingQueue 源码阅读与分析">ArrayBlockingQueue 源码阅读与分析</span>
+            <span class="post-date" title="2015-05-05 13:37:00">2015/05/05</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/04/15/ArrayList%E7%9A%84%E5%8A%A8%E6%80%81%E6%89%A9%E5%AE%B9%E7%9A%84%E5%AE%9E%E7%8E%B0/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="ArrayList的动态扩容的实现">ArrayList的动态扩容的实现</span>
+            <span class="post-date" title="2015-04-15 19:37:00">2015/04/15</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/05/10/AtomicInteger/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="AtomicInteger源码分析——基于CAS的乐观锁实现">AtomicInteger源码分析——基于CAS的乐观锁实现</span>
+            <span class="post-date" title="2015-05-10 12:14:53">2015/05/10</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/04/28/ArrayList%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="ArrayList的序列化与反序列化">ArrayList的序列化与反序列化</span>
+            <span class="post-date" title="2015-04-28 19:17:00">2015/04/28</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/07/04/CopyOnWriteArrayList/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="CopyOnWriteArrayList 源码阅读与分析">CopyOnWriteArrayList 源码阅读与分析</span>
+            <span class="post-date" title="2015-07-04 12:14:44">2015/07/04</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/05/19/HashMap%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E5%8F%8A%E5%86%B2%E7%AA%81%E5%A4%84%E7%90%86%E7%9A%84%E7%BB%86%E8%8A%82/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="HashMap源码分析及冲突处理的细节">HashMap源码分析及冲突处理的细节</span>
+            <span class="post-date" title="2015-05-19 12:14:53">2015/05/19</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/10/Java%20web%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%85%AD%E2%80%94%E2%80%94%20Cookie%E4%B8%8ESession/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结六—— Cookie 与 Session">Java web 基础总结六—— Cookie 与 Session</span>
+            <span class="post-date" title="2015-05-10 12:14:53">2015/05/10</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/12/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%83%E2%80%94%E2%80%94Filter%E4%B8%8EListener/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结七—— Filter 与 Listener">Java web 基础总结七—— Filter 与 Listener</span>
+            <span class="post-date" title="2015-05-12 13:38:50">2015/05/12</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/06/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%80%E2%80%94%E2%80%94xml%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb,xml"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结一——xml基础">Java web基础总结一——xml基础</span>
+            <span class="post-date" title="2015-05-06 13:18:28">2015/05/06</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/08/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%89%E2%80%94%E2%80%94JavaWeb%E6%9C%8D%E5%8A%A1%E5%99%A8/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结三—— java web 服务器">Java web基础总结三—— java web 服务器</span>
+            <span class="post-date" title="2015-05-08 13:32:26">2015/05/08</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/17/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B9%9D%E2%80%94%E2%80%94jsp%E6%A0%87%E7%AD%BE/"
+           data-tag="java,javaWeb,jsp"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结九—— jsp标签">Java web基础总结九—— jsp标签</span>
+            <span class="post-date" title="2015-05-17 12:54:31">2015/05/17</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/10/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%BA%94%E2%80%94%E2%80%94%20HttpServletRequest%E4%B8%8EHttpServletResponse/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结五—— HttpServletRequest 与 HttpServletResponse">Java web 基础总结五—— HttpServletRequest 与 HttpServletResponse</span>
+            <span class="post-date" title="2015-05-10 12:14:53">2015/05/10</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/07/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%BA%8C%E2%80%94%E2%80%94http%E5%8D%8F%E8%AE%AE/"
+           data-tag="java,javaWeb,http"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结二——http协议">Java web基础总结二——http协议</span>
+            <span class="post-date" title="2015-05-07 16:19:28">2015/05/07</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/12/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%85%AB%E2%80%94%E2%80%94jsp%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结八—— jsp基础">Java web基础总结八—— jsp基础</span>
+            <span class="post-date" title="2015-05-12 13:38:50">2015/05/12</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/17/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%8D%81%E2%80%94%E2%80%94jspEL%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="java,javaWeb,jsp"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结十—— jsp EL表达式">Java web基础总结十—— jsp EL表达式</span>
+            <span class="post-date" title="2015-05-17 12:54:31">2015/05/17</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/05/25/jdk%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E4%B9%8B%E2%80%94%E2%80%94String%E7%B1%BB/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="jdk源码阅读之——String类">jdk源码阅读之——String类</span>
+            <span class="post-date" title="2015-05-25 13:37:00">2015/05/25</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/09/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%9B%9B%E2%80%94%E2%80%94Servlet%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结四——Servlet基础">Java web基础总结四——Servlet基础</span>
+            <span class="post-date" title="2015-05-09 13:04:05">2015/05/09</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2015/05/25/maven%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"
+           data-tag="maven"
+           data-author="" >
+            <span class="post-title" title="maven使用手册">maven使用手册</span>
+            <span class="post-date" title="2015-05-25 13:37:00">2015/05/25</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2015/07/25/shell%E8%84%9A%E6%9C%AC%E6%9B%BF%E6%8D%A2%E7%BC%96%E8%BE%91jar%E5%8C%85%E7%9A%84%E6%96%87%E4%BB%B6/"
+           data-tag="shell"
+           data-author="" >
+            <span class="post-title" title="shell 脚本替换，编辑jar包">shell 脚本替换，编辑jar包</span>
+            <span class="post-date" title="2015-07-25 13:37:00">2015/07/25</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2015/05/25/svn%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"
+           data-tag="svn"
+           data-author="" >
+            <span class="post-title" title="svn使用手册">svn使用手册</span>
+            <span class="post-date" title="2015-05-25 13:37:00">2015/05/25</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2015/07/25/shell%E8%84%9A%E6%9C%AC%E7%A9%BA%E7%99%BD%E5%AD%97%E7%AC%A6%E9%97%AE%E9%A2%98/"
+           data-tag="shell"
+           data-author="" >
+            <span class="post-title" title="shell 脚本 M-BM- 字符问题">shell 脚本 M-BM- 字符问题</span>
+            <span class="post-date" title="2015-07-25 13:37:00">2015/07/25</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-svn使用手册" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">svn使用手册</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="工具">工具</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color4">svn</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-04-06 00:09:36'>2015-05-25 13:37</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#svn使用手册"><span class="toc-text">svn使用手册</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一-常用命令"><span class="toc-text">一.常用命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二-分支创建"><span class="toc-text">二.分支创建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三-分支合并"><span class="toc-text">三.分支合并</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#四-冲突解决"><span class="toc-text">四.冲突解决</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="svn使用手册"><a href="#svn使用手册" class="headerlink" title="svn使用手册"></a>svn使用手册</h3><h4 id="一-常用命令"><a href="#一-常用命令" class="headerlink" title="一.常用命令"></a>一.常用命令</h4><p>1、检出<br>svn  co/checkout  http://路径(目录或文件的全路径)　[本地目录全路径]  –username 用户名 –password 密码</p>
+<p>注意：username 与 password 前是两个短线，不是一个,认证过可不加。本地目录非必填，默认当前目录。<br>eg：svn co <a href="http://test/trunk" target="_blank" rel="noopener">http://test/trunk</a></p>
+<p>2. 查看信息<br>svn info [文件路径]</p>
+<p>没有指定文件返回当前 svn 仓库的信息,比如路径，分支地址，svn 服务器地址等等。指定了文件，会返回这个文件的详细信息。<br>eg：在我的测试目录下，执行 svn info 会返回:</p>
+<p>Path: .<br>Working Copy Root Path: D:\project\xxx<br>URL: <a href="https://xxx/trunk" target="_blank" rel="noopener">https://xxx/trunk</a><br>Relative URL: ^/xxx/trunk<br>Repository Root: <a href="https://svn.text.com" target="_blank" rel="noopener">https://svn.text.com</a><br>Repository UUID: f1e22b3a-c8a0-4bf3-8542-66ea2b9421c2<br>Revision: 1154742<br>Node Kind: directory<br>Schedule: normal<br>Last Changed Author: test<br>Last Changed Rev: 1154630<br>Last Changed Date: 2016-10-17 13:17:37 +0800 (周一, 17 十月 2016)</p>
+<p>3. 查看状态<br>svn st/status<br>返回当前目录下的文件的状态,例如?表示未添加，A 表示已添加，M 表示有修改</p>
+<p>eg：在我的测试目录下，执行 svn info 会返回:<br>?       xxx\test.iml<br>M       xxx\src\main\java\com\xxx\test.java</p>
+<p>4、更新文件<br>svn 　 update/up</p>
+<p>5、添加新文件<br>svn 　 add 　文件路径</p>
+<p>eg：<br>svn add xxx\src\main\java\com\xxx\test.java</p>
+<p>6、提交<br>svn 　 commit/ci 　-m 　“备注信息”</p>
+<p>注意: 必须带上-m 参数，参数可以为空，但是必须写上-m<br>eg：<br>svn commit -m “提交 test”</p>
+<p>7、删除文件<br>svn 　 delete 　 svn://路径(目录或文件的全路径) -m “备注信息”</p>
+<p>eg：<br>svn delete xxx\src\main\java\com\xxx\test.java -m “删除 test.java”</p>
+<p>8、加锁/解锁<br>svn 　 lock 　-m 　“备注信息”　[–force]　文件路径<br>svn 　 unlock 　文件路径<br>eg:<br>svn lock -m “test lock” xxx\src\main\java\com\xxx\test.java<br>svn unlock xxx\src\main\java\com\xxx\test.java</p>
+<p>9、比较差异<br>svn 　 diff 　文件路径<br>svn 　 diff 　-r 　 version_m:version_n 　文件路径<br>eg:<br>svn diff test.java :当前与修改之前比较<br>svn diff -r 111:222 test.java  ：对版本号 111 和 版本号 222 比较差异</p>
+<p>10、查看文件变更日志<br>svn 　 log 　文件路径<br>eg:<br>svn log test.java ：显示这个文件的所有修改记录，以及对应的版本号</p>
+<p>11、查看版本库下的文件和目录列表<br>svn 　 list/ls 　 svn://路径(目录或文件的全路径)<br>eg:<br>svn ls svn://xxx/test : 显示 svn://xxx/test 目录下的所有属于版本库的文件和目录</p>
+<p>12、创建新目录<br>svn 　 mkdir 　-m 　“新增目录备注文本”　http://目录全路径<br>eg:<br>svn mkdir -m “dir test” svn://localhost/test/newdir<br>注意：添加完子目录后，必须要回到根目录更新一下，否则会提示”提交失败”</p>
+<p>13、丢弃在本地的修改<br>svn 　 revert 　[–recursive]　文件路径<br>注意: 这个命令会解除冲突的状况，不会连接 svn 服务器，不会恢复被删除的目录。<br>eg:<br>svn revert foo.c ：丢弃对一个文件的修改<br>svn revert –recursive ：恢复一整个目录的文件，. 为当前目录</p>
+<p>14、标记冲突已经解决<br>svn 　 resolved 　[本地目录全路径]<br>eg:<br>如果你在更新时发生了冲突，你的工作拷贝会产生三个新的文件：<br>$ ls<br>foo.c<br>foo.c.mine<br>foo.c.r30<br>foo.c.r31<br>解决了 foo.c 的冲突，运行 svn resolved，会删除这三个冲突标记文件，解决冲突。</p>
+<p>15、不 checkout 而查看输出特定文件或 URL 的内容<br>svn 　 cat 　http://文件全路径<br>eg:<br>svn cat <a href="http://xxx/test.txt" target="_blank" rel="noopener">http://xxx/test.txt</a></p>
+<p>16、导出(导出一个干净的不带.svn 文件夹的目录树)<br>svn export<br>注意；与 checkout 不同的是没有.svn 文件夹。导出的文件脱离 SVN 版本控制，修改后无进行 Update 和 Commit 操作。</p>
+<p>16、导出(导出一个干净的不带.svn 文件夹的目录树)<br>svn export<br>注意；与 checkout 不同的是没有.svn 文件夹。导出的文件脱离 SVN 版本控制，修改后无进行 Update 和 Commit 操作。</p>
+<p>17、导入(本地目录导入到版本库)<br>svn import -m “import” test <a href="http://svn.red-bean.com/repos/branches/test" target="_blank" rel="noopener">http://svn.red-bean.com/repos/branches/test</a><br>注意；与 export 相反，将本地目录导入到版本库。与 add 不同的是直接更新到远程版本库。无需 commit.<br>原先的目录树并没有纳入版本控制，为了开始工作，你还是要运行 svn checkout 得到一个干净的目录树工作拷贝。</p>
+<h4 id="二-分支创建"><a href="#二-分支创建" class="headerlink" title="二.分支创建"></a>二.分支创建</h4><p>1、新建一个分支</p>
+<p>svn copy/cp branchA branchB  -m “new branch”</p>
+<p>从 branchA 拷贝出一个新分支 branchB,正常情况下，branchA 都是 trunk。生成 tag，也是这个命令，只需要把路径修改就可以了。</p>
+<p>2、切换分支<br>svn 　 switch/sw 　http://目录全路径　[本地目录全路径]<br>eg:<br>svn switch <a href="http://xxx/test/123" target="_blank" rel="noopener">http://xxx/test/123</a><br>注意：本地目录全路径可以不填，默认当前目录。</p>
+<h4 id="三-分支合并"><a href="#三-分支合并" class="headerlink" title="三.分支合并"></a>三.分支合并</h4><p>1.在分支执行，得到分支从 trunk checkout 出来的最早的版本号。如下面是 1089035</p>
+<p>$ svn log -v –stop-on-copy<br>…<br>------------------------------------------------------------------------<br>r1089035 | user | 2002-11-03 15:27:56 -0600 (Thu, 07 Nov 2002) | 2 lines</p>
+<p>2.可以使用–dry-run 参数模拟合并，预览是否有冲突。<br>svn merge –dry-run -r 1089035:HEAD <a href="https://branch/xxx" target="_blank" rel="noopener">https://branch/xxx</a></p>
+<p>3.合并，HEAD 是最新的版本号。下面的命令代表把分支的所有版本的改变合并到 trunk.<br>svn merge -r 1089035:HEAD <a href="https://branch/xxx" target="_blank" rel="noopener">https://branch/xxx</a></p>
+<h4 id="四-冲突解决"><a href="#四-冲突解决" class="headerlink" title="四.冲突解决"></a>四.冲突解决</h4><p>1.解决文件冲突</p>
+<p>(1)、svn update 后，1.txt 文件出现冲突，选择 base 版本，即 1.txt.rOld 作为最后提交的版本<br>$ svn resolve –accept base</p>
+<p>(2).手工修改 1.txt 文件，然后将当前拷贝即 1.txt 作为最后提交的版本<br>$ svn resolve –accept working 1.txt</p>
+<p>(3).使用 1.txt.rNew 作为最后提交的版本<br>$ svn resolve –accept theirs-full 1.txt</p>
+<p>(4).使用 1.txt.mine 作为最后提交的版本<br>$ svn resolve –accept mine-full 1.txt</p>
+<p>2.解决树冲突</p>
+<p>(1).什么是 SVN 树冲突？<br>  SVN 树冲突不是常说的冲突。常说的冲突，是指不同的人同时改了某个文件的同一处内容，于是在合并时产生冲突。而树冲突是指，<br>对文件或目录本身的名称、位置进行了改变，或进行了文件或目录本身的添加、删除操作，而这些操作在合并（包括更新操作）时带来了冲突。<br>可参考 SVN 自带的帮助文档，第 2 章”Basic Usage”的”Dealing with Structural Conflicts”一节。</p>
+<p>(2).如何避免树冲突？</p>
+<p>分支一定要从所在 SVN 项目的主干上拉出来，不要从其他位置特别是其他项目拉出来。即便本 SVN 项目主干上还”啥都没有”，也一定要从这里拉分支。<br>      请不要在删除一个文件或目录后，又再次添加。特别是像 ver、mapping 之类的文件和目录。这类操作造成的树冲突特别具有迷惑性。<br>      尽量不要更改文件和目录的名字，除非你确定小伙伴们最近不会碰它（修改名字或内容）。<br>      尽量不要在不同的分支上同时增加相同名称的文件或目录。</p>
+<p>(2).树冲突快速解决方法。<br>    确定在你解决树冲突期间，主线不会有新的变化。<br>    基于主线，创建新的分支，命名为（比如）branch1_new。并把它 checkout 到本地。<br>    将出问题的分支上的内容 export 到新分支上。具体命令为：<br>       svn export –force <url of old branch> <local working copy of new branch><br>    如果有需要删除的文件（主干上有，分支上确实想删除的），用 svn rm 命令删除。</local></url></p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章指出任何有错误或不够清晰的表达。欢迎邮件讨论 scdxcc@gmail.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>svn使用手册</p>
+    
+    <p><span class="copy-title">本文作者:</span><a  title="Cheng Chen">Cheng Chen</a></p>
+    <p><span class="copy-title">发布时间:</span>2015-05-25, 13:37:00</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-06, 00:09:36</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2015/05/25/svn%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/" title="svn使用手册">https://jmw.wiki/2015/05/25/svn%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '',
+            clientSecret: '',
+            repo: 'scdxcc.github.io',
+            owner: 'scdxcc',
+            admin: ['scdxcc'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2014-2020 scucc</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#java','#jdk','#javaWeb','#xml','#jsp','#http','#maven','#shell','#svn',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #100e0e;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #434346;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
