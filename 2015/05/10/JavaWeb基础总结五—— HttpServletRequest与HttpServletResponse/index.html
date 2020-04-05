@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Java web 基础总结五之—— HttpServletRequest 与 HttpServletResponse | Hexo</title>
+  <meta name="keywords" content=" java , javaWeb ">
+  <meta name="description" content="Java web 基础总结五之—— HttpServletRequest 与 HttpServletResponse | Hexo">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="var QZONE &#x3D; window.QZONE || {}; 	function imagezoom(imgobj, box_w, box_h) { 		var src_w &#x3D; imgobj.width; 		var src_h &#x3D; imgobj.height; 		var r1 &#x3D; src_w &#x2F; src_h, r2 &#x3D; box_w &#x2F; box_h; 		v">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://jmw.wiki/404.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="var QZONE &#x3D; window.QZONE || {}; 	function imagezoom(imgobj, box_w, box_h) { 		var src_w &#x3D; imgobj.width; 		var src_h &#x3D; imgobj.height; 		var r1 &#x3D; src_w &#x2F; src_h, r2 &#x3D; box_w &#x2F; box_h; 		v">
+<meta property="og:image" content="http://qzone.qq.com/gy/404/style/image/logo_tencentvolunteers.png">
+<meta property="og:image" content="http://qzone.qq.com/gy/404/style/image/logo_baobeihuijia.png">
+<meta property="article:published_time" content="2020-04-05T06:29:00.927Z">
+<meta property="article:modified_time" content="2020-04-04T14:21:38.132Z">
+<meta property="article:author" content="Cheng Chen">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://qzone.qq.com/gy/404/style/image/logo_tencentvolunteers.png">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>Cheng Chen</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/scdxcc" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="csdn" href="https://blog.csdn.net/qfycc92" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-csdn"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:scdxcc@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(10)</small></div></li>
+    
+        
+            
+            <li><div data-rel="java基础">java基础<small>(10)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="10">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://blog.csdn.net/qfycc92">csdn</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="以 in: 开头进行全文搜索" />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color5">java</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">javaWeb</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">xml</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">http</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">jsp</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="java基础 "
+           href="/2015/05/10/Java%20web%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%85%AD%E2%80%94%E2%80%94%20Cookie%E4%B8%8ESession/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结六之—— Cookie 与 Session">Java web 基础总结六之—— Cookie 与 Session</span>
+            <span class="post-date" title="2015-05-10 12:14:53">2015/05/10</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/06/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%80%E2%80%94%E2%80%94xml%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb,xml"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结之一——xml基础">Java web基础总结之一——xml基础</span>
+            <span class="post-date" title="2015-05-06 13:18:28">2015/05/06</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/08/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%89%E2%80%94%E2%80%94JavaWeb%E6%9C%8D%E5%8A%A1%E5%99%A8/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结三之—— java web 服务器">Java web基础总结三之—— java web 服务器</span>
+            <span class="post-date" title="2015-05-08 13:32:26">2015/05/08</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/12/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%83%E2%80%94%E2%80%94Filter%E4%B8%8EListener/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结七之—— Filter 与 Listener">Java web 基础总结七之—— Filter 与 Listener</span>
+            <span class="post-date" title="2015-05-12 13:38:50">2015/05/12</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/07/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%BA%8C%E2%80%94%E2%80%94http%E5%8D%8F%E8%AE%AE/"
+           data-tag="java,javaWeb,http"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结之二——http协议">Java web基础总结之二——http协议</span>
+            <span class="post-date" title="2015-05-07 16:19:28">2015/05/07</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/10/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%BA%94%E2%80%94%E2%80%94%20HttpServletRequest%E4%B8%8EHttpServletResponse/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结五之—— HttpServletRequest 与 HttpServletResponse">Java web 基础总结五之—— HttpServletRequest 与 HttpServletResponse</span>
+            <span class="post-date" title="2015-05-10 12:14:53">2015/05/10</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/17/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B9%9D%E2%80%94%E2%80%94jsp%E6%A0%87%E7%AD%BE/"
+           data-tag="java,javaWeb,jsp"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结八之—— jsp标签">Java web基础总结八之—— jsp标签</span>
+            <span class="post-date" title="2015-05-17 12:54:31">2015/05/17</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/12/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%85%AB%E2%80%94%E2%80%94jsp%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结八之—— jsp基础">Java web基础总结八之—— jsp基础</span>
+            <span class="post-date" title="2015-05-12 13:38:50">2015/05/12</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/17/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%8D%81%E2%80%94%E2%80%94jspEL%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="java,javaWeb,jsp"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结十之—— jsp EL表达式">Java web基础总结十之—— jsp EL表达式</span>
+            <span class="post-date" title="2015-05-17 12:54:31">2015/05/17</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/09/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%9B%9B%E2%80%94%E2%80%94Servlet%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结四之——Servlet基础">Java web基础总结四之——Servlet基础</span>
+            <span class="post-date" title="2015-05-09 13:04:05">2015/05/09</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-JavaWeb基础总结五—— HttpServletRequest与HttpServletResponse" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Java web 基础总结五之—— HttpServletRequest 与 HttpServletResponse</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="java基础">java基础</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color5">java</a>
+            
+            <a class="color3">javaWeb</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-04-05 16:21:19'>2015-05-10 12:14</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-web-基础总结五之——-HttpServletRequest-与-HttpServletResponse"><span class="toc-text">Java web 基础总结五之—— HttpServletRequest 与 HttpServletResponse</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#一．HttpServletRequest-与-HttpServletResponse-的实现类"><span class="toc-text">一．HttpServletRequest 与 HttpServletResponse 的实现类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#二．HttpServletRequest-简介"><span class="toc-text">二．HttpServletRequest 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-获得客户端的信息"><span class="toc-text">1.获得客户端的信息</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-获得请求头的一些方法"><span class="toc-text">2.获得请求头的一些方法</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-获得请求参数，也就是客户端提交的数据的一些方法。"><span class="toc-text">3.获得请求参数，也就是客户端提交的数据的一些方法。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4-HttpServletRequest-实现转发"><span class="toc-text">4.HttpServletRequest 实现转发</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#5-request-域"><span class="toc-text">5.request 域</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#6-Request-的-getParameter-和-getAttribute-方法的区别。"><span class="toc-text">6.Request 的 getParameter 和 getAttribute 方法的区别。</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#三．HttpServletResponse-简介"><span class="toc-text">三．HttpServletResponse 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-常用的方法"><span class="toc-text">1.常用的方法</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-getOutputStream-和-getWriter-方法的区别"><span class="toc-text">2.getOutputStream 和 getWriter 方法的区别</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-HttpServletResponse-实现重定向"><span class="toc-text">3.HttpServletResponse 实现重定向</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#四．转发-forward-和重定向-Redirect-的区别"><span class="toc-text">四．转发 forward 和重定向 Redirect 的区别</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="Java-web-基础总结五之——-HttpServletRequest-与-HttpServletResponse"><a href="#Java-web-基础总结五之——-HttpServletRequest-与-HttpServletResponse" class="headerlink" title="Java web 基础总结五之—— HttpServletRequest 与 HttpServletResponse"></a>Java web 基础总结五之—— HttpServletRequest 与 HttpServletResponse</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在前面总结过，每当客户端给 Web 服务器发送一个 http 请求，web 服务器就会针对每一次请求，分别创建一个用于代表请求的 request 对象、和代表响应的 response 对象。request 和 response 对象就代表请求和响应，所以我们可以通过 request 对象获得请求相关的数据和操作。通过 response 对象进行对响应相关的数据封装和一些其他的操作。</p>
+<h5 id="一．HttpServletRequest-与-HttpServletResponse-的实现类"><a href="#一．HttpServletRequest-与-HttpServletResponse-的实现类" class="headerlink" title="一．HttpServletRequest 与 HttpServletResponse 的实现类"></a>一．HttpServletRequest 与 HttpServletResponse 的实现类</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们会发现，HttpServletRequest 与 HttpServletResponse 都是接口，那么它们在运行的时候的实现类是什么？是由谁负责实例化它们的实现类呢？</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过对上一篇文章的 HelloWorldServlet 进行调试，可以得到答案。HelloWorldServlet 的部分代码的截图如下所示：</p>
+<p><img src="https://img-blog.csdn.net/20150510121542272" alt=""></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这张图是调试时获得的：</p>
+<p><img src="https://img-blog.csdn.net/20150510121745859" alt=""></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过上面的图我们可以看到，HttpServletRequest 与 HttpServletResponse 的对象 req,resp 的实际的类型是 RequestFacade 和 ResponseFacade。这两个类都是 org.apache.catalina.connector 包下面的。也就是我使用的 web 服务器 tomcat 的两个类。所以还是由 web 容器来负责实例化 HttpServletRequest 与 HttpServletResponse 的对象。</p>
+<h5 id="二．HttpServletRequest-简介"><a href="#二．HttpServletRequest-简介" class="headerlink" title="二．HttpServletRequest 简介"></a>二．HttpServletRequest 简介</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HttpServletRequest 对象代表客户端的请求，当客户端通过 HTTP 协议访问服务器时，HTTP 请求头中的所有信息都封装在这个对象中。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;request 常用的方法和操作：</p>
+<h6 id="1-获得客户端的信息"><a href="#1-获得客户端的信息" class="headerlink" title="1.获得客户端的信息"></a>1.获得客户端的信息</h6><p>getRequestURL 方法返回客户端发出请求时的完整 URL。</p>
+<p>getRequestURI 方法返回请求行中的资源名部分，去掉主机名的部分。</p>
+<p>getRemoteAddr 方法返回发出请求的客户机的 IP 地址</p>
+<p>getRemoteHost 方法返回发出请求的客户机的完整主机名</p>
+<p>getRemotePort 方法返回客户机所使用的端口号</p>
+<p>getLocalAddr 方法返回 WEB 服务器的 IP 地址。</p>
+<p>getLocalName 方法返回 WEB 服务器的主机名</p>
+<p>getMethod 得到客户机请求方式，如 GET,POST</p>
+<h6 id="2-获得请求头的一些方法"><a href="#2-获得请求头的一些方法" class="headerlink" title="2.获得请求头的一些方法"></a>2.获得请求头的一些方法</h6><p>getHead(name)方法</p>
+<p>getHeaders(String name)方法</p>
+<p>getHeaderNames 方法</p>
+<h6 id="3-获得请求参数，也就是客户端提交的数据的一些方法。"><a href="#3-获得请求参数，也就是客户端提交的数据的一些方法。" class="headerlink" title="3.获得请求参数，也就是客户端提交的数据的一些方法。"></a>3.获得请求参数，也就是客户端提交的数据的一些方法。</h6><p>getParameter(name)方法</p>
+<p>getParameterValues（String name）方法</p>
+<p>getParameterNames 方法</p>
+<p>getParameterMap 方法</p>
+<h6 id="4-HttpServletRequest-实现转发"><a href="#4-HttpServletRequest-实现转发" class="headerlink" title="4.HttpServletRequest 实现转发"></a>4.HttpServletRequest 实现转发</h6><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请求转发指一个 web 资源收到客户端请求后，通知服务器去调用另外一个 web 资源进行处理。request 对象提供了一个 getRequestDispatcher 方法，该方法返回一个 RequestDispatcher 对象，调用这个对象的 forward 方法可以实现请求转发。</p>
+<h6 id="5-request-域"><a href="#5-request-域" class="headerlink" title="5.request 域"></a>5.request 域</h6><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;request 对象同时也是一个域对象，我们通过 request 对象在实现转发时，可以把数据通过 request 对象带给其它 web 资源处理。下面是常用的一些对域中的属性的操作的方法：</p>
+<p>setAttribute 方法</p>
+<p>getAttribute 方法</p>
+<p>removeAttribute 方法</p>
+<p>getAttributeNames 方法</p>
+<h6 id="6-Request-的-getParameter-和-getAttribute-方法的区别。"><a href="#6-Request-的-getParameter-和-getAttribute-方法的区别。" class="headerlink" title="6.Request 的 getParameter 和 getAttribute 方法的区别。"></a>6.Request 的 getParameter 和 getAttribute 方法的区别。</h6><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 request 也是一个域对象，所以既可以从它获得参数，即 Parameter。也可以获得域中的属性。但是他们的意义是完全不一样的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getParameter(String  name)获得客户端传送给服务器的参数值,该参数是由 name 指定的,通常是表单中的参数。而且参数只能是字符串形式的键值对。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getAttribute(String  name):返回有 name 指定的属性值,如果指定的属性值不存在,则会返回一个 null 值。这里存放的也是一个键值对，不同的是，这里的值可以是任意的类型。</p>
+<h5 id="三．HttpServletResponse-简介"><a href="#三．HttpServletResponse-简介" class="headerlink" title="三．HttpServletResponse 简介"></a>三．HttpServletResponse 简介</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HttpServletResponse 则是对服务器的响应对象。这个对象中封装了向客户端发送数据、发送响应头，发送响应状态码的方法。</p>
+<p>response 常用的方法和操作：</p>
+<h6 id="1-常用的方法"><a href="#1-常用的方法" class="headerlink" title="1.常用的方法"></a>1.常用的方法</h6><p>addCookie(Cookie cookie)  向客户端写入 Cookie</p>
+<p>addHeader(java.lang.String name, java.lang.String value) 写入给定的响应头</p>
+<p>encodeURL(java.lang.Stringurl) 默认 cookie 中包含 Session ID，如果客户端不支持 Cookie，就在参数 url 中加入 Session ID 信息，可以解决用户禁用 cookie 的问题。</p>
+<p>setStatus(intsc)  设置响应的状态码。</p>
+<h6 id="2-getOutputStream-和-getWriter-方法的区别"><a href="#2-getOutputStream-和-getWriter-方法的区别" class="headerlink" title="2.getOutputStream 和 getWriter 方法的区别"></a>2.getOutputStream 和 getWriter 方法的区别</h6><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getOutputStream 和 getWriter 方法分别用于得到输出二进制数据、输出文本数据的 ServletOuputStream、Printwriter 对象。getOutputStream 和 getWriter 这两个方法互相排斥，调用了其中的任何一个方法后，就不能再调用另一方法。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这两个方法写入的数据会作为响应消息的正文，与响应状态行和各响应头组合后输出到客户端。Serlvet 的 service 方法结束后，web 容器将检查 getWriter 或 getOutputStream 方法返回的输出流对象是否已经调用过 close 方法，如果没有，web 容器将调用 close 方法关闭该输出流对象。</p>
+<h6 id="3-HttpServletResponse-实现重定向"><a href="#3-HttpServletResponse-实现重定向" class="headerlink" title="3.HttpServletResponse 实现重定向"></a>3.HttpServletResponse 实现重定向</h6><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重定向指的是一个 web 资源收到客户端请求后，web 服务器通知客户端去访问另外一个 web 资源，这称之为请求重定向。实现方式是调用 response.sendRedirect()方法。实现的原理就是给客户端返回了 302 状态码和 location 头。</p>
+<h5 id="四．转发-forward-和重定向-Redirect-的区别"><a href="#四．转发-forward-和重定向-Redirect-的区别" class="headerlink" title="四．转发 forward 和重定向 Redirect 的区别"></a>四．转发 forward 和重定向 Redirect 的区别</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;转发是在服务器端实现的。一个 web 资源收到客户端请求后，通知服务器去调用另外一个 web 资源进行处理，称之为请求转发。调用 RequestDispatcher.forward 方法的请求转发过程结束后，浏览器地址栏保持初始的 URL 地址不变。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;而重定向是在客户端实现的。一个 web 资源收到客户端请求后，通知客户端的浏览器去访问另外一个 web 资源，称之为请求重定向。所以调用 HttpServletResponse.sendRedirect 方法重定向的访问过程结束后，浏览器地址栏中显示的 URL 会发生改变，由初始的 URL 地址变成重定向的目标 URL。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RequestDispatcher.forward 方法只能将请求转发给同一个 WEB 应用中的其他资源； sendRedirect 方法还可以重定向到同一个站点上的其他应用程序中的资源，甚至是使用绝对 URL 重定向到其他站点的资源。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HttpServletResponse.sendRedirect 方法对浏览器的请求直接作出响应，响应的结果就是告诉浏览器去重新发出对另外一个 URL 的访问请求；RequestDispatcher.forward 方法在服务器端将请求转发给另外一个资源，相当过程于对客户端不可见。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RequestDispatcher.forward 方法的调用者与被调用者之间共享相同的 request 对象和 response 对象，它们属于同一个访问请求和响应过程；而 HttpServletResponse.sendRedirect 方法调用者与被调用者使用各自的 request 对象和 response 对象，它们属于两个独立的访问请求和响应过程。也就是说，重定向生成了新的 request 对象和 response 对象。</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章指出任何有错误或不够清晰的表达。欢迎邮件讨论 scdxcc@gmail.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Java web 基础总结五之—— HttpServletRequest 与 HttpServletResponse</p>
+    
+    <p><span class="copy-title">本文作者:</span><a  title="Cheng Chen">Cheng Chen</a></p>
+    <p><span class="copy-title">发布时间:</span>2015-05-10, 12:14:53</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-05, 16:21:19</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2015/05/10/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%BA%94%E2%80%94%E2%80%94%20HttpServletRequest%E4%B8%8EHttpServletResponse/" title="Java web 基础总结五之—— HttpServletRequest 与 HttpServletResponse">https://jmw.wiki/2015/05/10/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%BA%94%E2%80%94%E2%80%94%20HttpServletRequest%E4%B8%8EHttpServletResponse/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '',
+            clientSecret: '',
+            repo: 'scdxcc.github.io',
+            owner: 'scdxcc',
+            admin: ['scdxcc'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2014-2020 scucc</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#java','#javaWeb','#xml','#http','#jsp',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #100e0e;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #434346;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Java web基础总结之一——xml基础 | Hexo</title>
+  <meta name="keywords" content=" java , javaWeb , xml ">
+  <meta name="description" content="Java web基础总结之一——xml基础 | Hexo">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="var QZONE &#x3D; window.QZONE || {}; 	function imagezoom(imgobj, box_w, box_h) { 		var src_w &#x3D; imgobj.width; 		var src_h &#x3D; imgobj.height; 		var r1 &#x3D; src_w &#x2F; src_h, r2 &#x3D; box_w &#x2F; box_h; 		v">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://jmw.wiki/404.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="var QZONE &#x3D; window.QZONE || {}; 	function imagezoom(imgobj, box_w, box_h) { 		var src_w &#x3D; imgobj.width; 		var src_h &#x3D; imgobj.height; 		var r1 &#x3D; src_w &#x2F; src_h, r2 &#x3D; box_w &#x2F; box_h; 		v">
+<meta property="og:image" content="http://qzone.qq.com/gy/404/style/image/logo_tencentvolunteers.png">
+<meta property="og:image" content="http://qzone.qq.com/gy/404/style/image/logo_baobeihuijia.png">
+<meta property="article:published_time" content="2020-04-05T06:29:00.927Z">
+<meta property="article:modified_time" content="2020-04-04T14:21:38.132Z">
+<meta property="article:author" content="Cheng Chen">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://qzone.qq.com/gy/404/style/image/logo_tencentvolunteers.png">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>Cheng Chen</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/scdxcc" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="csdn" href="https://blog.csdn.net/qfycc92" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-csdn"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:scdxcc@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(10)</small></div></li>
+    
+        
+            
+            <li><div data-rel="java基础">java基础<small>(10)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="10">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://blog.csdn.net/qfycc92">csdn</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="以 in: 开头进行全文搜索" />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color5">java</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">javaWeb</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">xml</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">http</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">jsp</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="java基础 "
+           href="/2015/05/10/Java%20web%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%85%AD%E2%80%94%E2%80%94%20Cookie%E4%B8%8ESession/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结六之—— Cookie 与 Session">Java web 基础总结六之—— Cookie 与 Session</span>
+            <span class="post-date" title="2015-05-10 12:14:53">2015/05/10</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/06/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%80%E2%80%94%E2%80%94xml%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb,xml"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结之一——xml基础">Java web基础总结之一——xml基础</span>
+            <span class="post-date" title="2015-05-06 13:18:28">2015/05/06</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/08/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%89%E2%80%94%E2%80%94JavaWeb%E6%9C%8D%E5%8A%A1%E5%99%A8/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结三之—— java web 服务器">Java web基础总结三之—— java web 服务器</span>
+            <span class="post-date" title="2015-05-08 13:32:26">2015/05/08</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/12/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%83%E2%80%94%E2%80%94Filter%E4%B8%8EListener/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结七之—— Filter 与 Listener">Java web 基础总结七之—— Filter 与 Listener</span>
+            <span class="post-date" title="2015-05-12 13:38:50">2015/05/12</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/07/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%BA%8C%E2%80%94%E2%80%94http%E5%8D%8F%E8%AE%AE/"
+           data-tag="java,javaWeb,http"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结之二——http协议">Java web基础总结之二——http协议</span>
+            <span class="post-date" title="2015-05-07 16:19:28">2015/05/07</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/10/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%BA%94%E2%80%94%E2%80%94%20HttpServletRequest%E4%B8%8EHttpServletResponse/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结五之—— HttpServletRequest 与 HttpServletResponse">Java web 基础总结五之—— HttpServletRequest 与 HttpServletResponse</span>
+            <span class="post-date" title="2015-05-10 12:14:53">2015/05/10</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/17/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B9%9D%E2%80%94%E2%80%94jsp%E6%A0%87%E7%AD%BE/"
+           data-tag="java,javaWeb,jsp"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结八之—— jsp标签">Java web基础总结八之—— jsp标签</span>
+            <span class="post-date" title="2015-05-17 12:54:31">2015/05/17</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/12/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%85%AB%E2%80%94%E2%80%94jsp%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结八之—— jsp基础">Java web基础总结八之—— jsp基础</span>
+            <span class="post-date" title="2015-05-12 13:38:50">2015/05/12</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/17/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%8D%81%E2%80%94%E2%80%94jspEL%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="java,javaWeb,jsp"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结十之—— jsp EL表达式">Java web基础总结十之—— jsp EL表达式</span>
+            <span class="post-date" title="2015-05-17 12:54:31">2015/05/17</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/09/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%9B%9B%E2%80%94%E2%80%94Servlet%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结四之——Servlet基础">Java web基础总结四之——Servlet基础</span>
+            <span class="post-date" title="2015-05-09 13:04:05">2015/05/09</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-JavaWeb基础总结一——xml基础" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Java web基础总结之一——xml基础</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="java基础">java基础</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color5">java</a>
+            
+            <a class="color3">javaWeb</a>
+            
+            <a class="color4">xml</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-04-05 17:11:28'>2015-05-06 13:18</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-web基础总结之一——xml基础"><span class="toc-text">Java web基础总结之一——xml基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一．Xml基础知识以及语法规范"><span class="toc-text">一．Xml基础知识以及语法规范</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#xml的语法"><span class="toc-text">xml的语法</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-文档声明"><span class="toc-text">1.文档声明</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-元素"><span class="toc-text">2.元素</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-属性"><span class="toc-text">3.属性</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4-注释"><span class="toc-text">4.注释</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#5-CDATA区域和转义字符"><span class="toc-text">5.CDATA区域和转义字符</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#6-处理指令"><span class="toc-text">6.处理指令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二．XML的约束"><span class="toc-text">二．XML的约束</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-XML-DTD约束"><span class="toc-text">1.XML DTD约束</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-XML-Schema约束"><span class="toc-text">2.XML Schema约束</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三．XML文件的解析"><span class="toc-text">三．XML文件的解析</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Java-web基础总结之一——xml基础"><a href="#Java-web基础总结之一——xml基础" class="headerlink" title="Java web基础总结之一——xml基础"></a>Java web基础总结之一——xml基础</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要学习java web,掌握xml语言是必要的，可以说，在一个java web项目中，xml配置文件无处不在。首先每个java web项目都会有一个web.xml的配置文件。而在各种各样的框架中，xml配置文件更是必不可少。当然，虽然有些框架可以使用注解来实现零配置。但是一般还是习惯于使用配置文件，可以和代码解耦和。</p>
+<h4 id="一．Xml基础知识以及语法规范"><a href="#一．Xml基础知识以及语法规范" class="headerlink" title="一．Xml基础知识以及语法规范"></a>一．Xml基础知识以及语法规范</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;那首先的问题是，什么是xml?它主要用来做什么？<br>Xml是Extensible Markup Language的缩写，就是可扩展标记语言。W3C组织于2000发布了XML1.0规范。当时据说是为了替代html语言，现在看来是没有实现。XML语言的作用是描述有关系的数据。在XML语言中，它允许用户自定义标签。一个标签用于描述一段数据；一个标签可分为开始标签和结束标签，在开始标签和结束标签之间，又可以使用其它标签描述其它数据，以此来实现数据关系的描述。比如：</p>
+<pre><code>&lt;大学专业&gt;
+    &lt;文科&gt;
+             &lt;历史&gt;&lt;/历史&gt;
+             &lt;法律&gt;&lt;/法律&gt;
+    &lt;/文科&gt;
+
+    &lt;理科&gt;
+             &lt;化学&gt;&lt;/化学&gt;
+             &lt;物理&gt;&lt;/物理&gt;
+    &lt;/理科&gt;
+&lt;/大学专业&gt;</code></pre><h5 id="xml的语法"><a href="#xml的语法" class="headerlink" title="xml的语法"></a>xml的语法</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 一个完整的xml文件会包括以下几个部分：文档声明 ，元素，属性，注释 ，CDATA及转义字符 ，处理指令。</p>
+<h6 id="1-文档声明"><a href="#1-文档声明" class="headerlink" title="1.文档声明"></a>1.文档声明</h6><p>&nbsp;&nbsp;&nbsp;&nbsp;在编写XML文档时，最开头要进行文档声明，声明XML文档的类型，下面是两个例子。</p>
+<p>最简单的声明语法：</p>
+<pre><code>  &lt;?xmlversion=&quot;1.0&quot; ?&gt;</code></pre><p>用encoding属性说明文档的字符编码：</p>
+<pre><code>  &lt;?xmlversion=&quot;1.0&quot; encoding=&quot;GB2312&quot; ?&gt; </code></pre><h6 id="2-元素"><a href="#2-元素" class="headerlink" title="2.元素"></a>2.元素</h6><p>&nbsp;&nbsp;&nbsp;&nbsp;XML元素指XML文件中出现的标签，一个标签分为开始标签和结束标签，一个标签有如下几种书写形式，例如：</p>
+<p>包含标签体：&lt;大学专业&gt; xx&lt;/大学专业&gt;</p>
+<p>不含标签体的：&lt;大学专业&gt; &lt;/大学专业&gt;, 可以简写为：&lt;大学专业/&gt;</p>
+<p>元素的语法规范</p>
+<pre><code>   XML的合法的元素可以包含字母、数字以及其它一些可见字符，但必须遵守下面的一些规范：大小写敏感的，例如，&lt;A&gt;和&lt;a&gt;是完全不一样的。不能以数字或&quot;_&quot; (下划线)开头。不能以xml(或XML、或Xml 等)开头。不能包含空格。而且中间不能包含冒号。
+
+*有几个需要注意的问题：</code></pre><p>（1）.一个标签中也可以嵌套若干子标签。绝对不能交叉嵌套，比如：</p>
+<pre><code>       &lt;历史&gt;aa&lt;物理&gt;xx&lt;/历史&gt;&lt;/物理&gt;</code></pre><p>（2）.通常XML文档必须有且仅有一个根标签，其它标签都是这个根标签的子孙标签。</p>
+<p>（3）.和java代码不同的是，对于XML标签中出现的所有空格和换行，XML解析程序都会当作标签内容进行处理。举个例子，下面的两个完全不同。</p>
+<p>例1：</p>
+<pre><code>  &lt;大学专业\&gt; xx&lt;/大学专业&gt;</code></pre><p>例2：</p>
+<pre><code>  &lt;大学专业\&gt; xx&lt;/大学专业&gt;</code></pre><h6 id="3-属性"><a href="#3-属性" class="headerlink" title="3.属性"></a>3.属性</h6><p>&nbsp;&nbsp;&nbsp;&nbsp;一个标签可以有一个或者多个的属性，属性有名字和值，例如：</p>
+<pre><code>              &lt;importresource=&quot;spring-dao.xml&quot;/&gt;</code></pre><p>在XML中，标签属性所代表的信息，也可以被改成用子元素的形式来描述，例如：</p>
+<pre><code>              &lt; import&gt;
+                      &lt; resource &gt; spring-dao.xml&lt;/ resource &gt;
+              &lt;/ import&gt;</code></pre><p>同时也要注意一些细节，属性值必须要用双引号（”）或单引号（’）引起来，属性的命名规范和标签一样。</p>
+<h6 id="4-注释"><a href="#4-注释" class="headerlink" title="4.注释"></a>4.注释</h6><p>&nbsp;&nbsp;&nbsp;&nbsp;xml中也可以写一些注释，文件中的注释的格式是：“<!--注释内容-->”。需要注意几个细节，一个是注释不能有嵌套，还有就是和java代码不一样的是，注释不能写在开头，即在xml声明的前面。</p>
+<h6 id="5-CDATA区域和转义字符"><a href="#5-CDATA区域和转义字符" class="headerlink" title="5.CDATA区域和转义字符"></a>5.CDATA区域和转义字符</h6><p>&nbsp;&nbsp;&nbsp;&nbsp;当我们编写XML文件时，可能会有这种需求，就是有些内容不想让解析引擎解析执行，而是当作原始内容处理，这时可以有两种情况。</p>
+<p>（1）. 对于任意的字符，可以使用CDATA区，对于CDATA区域内的内容，XML解析程序不会处理，而是直接输出，不做任何的解析。语法是：&lt;![CDATA[ 内容 ]]&gt;</p>
+<p>（2）. 对于一些单个字符，由于是xml中的有意义的字符，若想显示其原始样式，就可以使用转义的形式予以处理。下面是常见的转义字符表：</p>
+<p><img src="https://img-blog.csdn.net/20150507113226703?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcWZ5Y2M5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="">  </p>
+<h6 id="6-处理指令"><a href="#6-处理指令" class="headerlink" title="6.处理指令"></a>6.处理指令</h6><p>&nbsp;&nbsp;&nbsp;&nbsp;处理指令，简称PI （processinginstruction）。处理指令用来指挥解析引擎如何解析XML文档内容。处理指令必须以“<?”作为开头，以“?>”作为结尾，XML声明语句就是最常见的一种处理指令。</p>
+<h4 id="二．XML的约束"><a href="#二．XML的约束" class="headerlink" title="二．XML的约束"></a>二．XML的约束</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;所谓的xml约束，就是约束一个XML文档的书写规范的一个约束文档，这称之为XML约束。例如spring中的约束文件：</p>
+<pre><code>      xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+
+      http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+
+      http://www.springframework.org/schema/context
+
+      http://www.springframework.org/schema/context/spring-context-3.1.xsd&quot;</code></pre><p>常见的有XML DTD 和XML Schema两种约束</p>
+<h6 id="1-XML-DTD约束"><a href="#1-XML-DTD约束" class="headerlink" title="1.XML DTD约束"></a>1.XML DTD约束</h6><p>&nbsp;&nbsp;&nbsp;&nbsp;DTD(Document Type Definition)，全称为文档类型定义。使用一个以 .dtd 为后缀的约束文件。DTD约束即可以作为一个单独的文件编写，也可以在XML文件内编写。具体的语法这里就不详细讨论了。</p>
+<h6 id="2-XML-Schema约束"><a href="#2-XML-Schema约束" class="headerlink" title="2.XML Schema约束"></a>2.XML Schema约束</h6><p>&nbsp;&nbsp;&nbsp;&nbsp; XML Schema 是另一种用于定义和描述 XML 文档结构与内容的模式语言，其出现是为了克服 DTD 的局限性。Schema约束与dtd约束最大的区别在于Schema约束文档本身也是一个符合xml语法的xml文件。它的功能更强大，更复杂，现在已是w3c组织的标准，它正逐步取代DTD成为标准的xml约束，常见的是以.xsd为后缀的文件，如上面例子中的spring的约束文件。</p>
+<h4 id="三．XML文件的解析"><a href="#三．XML文件的解析" class="headerlink" title="三．XML文件的解析"></a>三．XML文件的解析</h4><pre><code>Java中有很多的第三方的解析xml文件的类库，可以避免我们重复造轮子，而去直接使用。</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;XML解析方式分为两种：dom和sax。dom：(Document Object Model, 即文档对象模型) 是 W3C 组织推荐的处理 XML 的一种方式。sax： (Simple APIfor XML) 不是官方标准，但它是 XML 社区事实上的标准，几乎所有的 XML 解析器都支持它。XML解析器(apache)主要有：Crimson(sun1.4)、Xerces(IBM 1.5) 、Aelfred2(DOM4J)。XML解析开发包(对解析封装后开发的API)主要有Jaxp(使用Crimson(sun1.4)、Xerces(IBM 1.5) )、Jdom、Dom4j(Aelfred2(DOM4J))。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;DOM解析和SAX解析的区别是在使用 DOM 解析 XML 文档时，需要读取整个 XML 文档，在内存中构架代表整个 DOM 树的Doucment对象，从而再对XML文档进行操作。此种情况下，如果 XML 文档特别大，就会消耗计算机的大量内存，并且容易导致内存溢出。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;SAX解析允许在读取文档的时候，即对文档进行处理，而不必等到整个文档装载完才会文档进行操作。所以相对更加的灵活。对于xml解析的具体操作，可以查看相应的xml解析器的API文档进行学习。这篇文章只是简单的介绍，就不多说了。</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章指出任何有错误或不够清晰的表达。欢迎邮件讨论 scdxcc@gmail.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Java web基础总结之一——xml基础</p>
+    
+    <p><span class="copy-title">本文作者:</span><a  title="Cheng Chen">Cheng Chen</a></p>
+    <p><span class="copy-title">发布时间:</span>2015-05-06, 13:18:28</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-05, 17:11:28</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2015/05/06/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%80%E2%80%94%E2%80%94xml%E5%9F%BA%E7%A1%80/" title="Java web基础总结之一——xml基础">https://jmw.wiki/2015/05/06/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%80%E2%80%94%E2%80%94xml%E5%9F%BA%E7%A1%80/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '',
+            clientSecret: '',
+            repo: 'scdxcc.github.io',
+            owner: 'scdxcc',
+            admin: ['scdxcc'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2014-2020 scucc</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#java','#javaWeb','#xml','#http','#jsp',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #100e0e;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #434346;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

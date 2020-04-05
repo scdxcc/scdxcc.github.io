@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Java web基础总结之二——http协议 | Hexo</title>
+  <meta name="keywords" content=" java , javaWeb , http ">
+  <meta name="description" content="Java web基础总结之二——http协议 | Hexo">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="var QZONE &#x3D; window.QZONE || {}; 	function imagezoom(imgobj, box_w, box_h) { 		var src_w &#x3D; imgobj.width; 		var src_h &#x3D; imgobj.height; 		var r1 &#x3D; src_w &#x2F; src_h, r2 &#x3D; box_w &#x2F; box_h; 		v">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://jmw.wiki/404.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="var QZONE &#x3D; window.QZONE || {}; 	function imagezoom(imgobj, box_w, box_h) { 		var src_w &#x3D; imgobj.width; 		var src_h &#x3D; imgobj.height; 		var r1 &#x3D; src_w &#x2F; src_h, r2 &#x3D; box_w &#x2F; box_h; 		v">
+<meta property="og:image" content="http://qzone.qq.com/gy/404/style/image/logo_tencentvolunteers.png">
+<meta property="og:image" content="http://qzone.qq.com/gy/404/style/image/logo_baobeihuijia.png">
+<meta property="article:published_time" content="2020-04-05T06:29:00.927Z">
+<meta property="article:modified_time" content="2020-04-04T14:21:38.132Z">
+<meta property="article:author" content="Cheng Chen">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://qzone.qq.com/gy/404/style/image/logo_tencentvolunteers.png">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>Cheng Chen</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/scdxcc" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="csdn" href="https://blog.csdn.net/qfycc92" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-csdn"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:scdxcc@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(10)</small></div></li>
+    
+        
+            
+            <li><div data-rel="java基础">java基础<small>(10)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="10">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://blog.csdn.net/qfycc92">csdn</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="以 in: 开头进行全文搜索" />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color5">java</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">javaWeb</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">xml</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">http</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">jsp</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="java基础 "
+           href="/2015/05/10/Java%20web%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%85%AD%E2%80%94%E2%80%94%20Cookie%E4%B8%8ESession/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结六之—— Cookie 与 Session">Java web 基础总结六之—— Cookie 与 Session</span>
+            <span class="post-date" title="2015-05-10 12:14:53">2015/05/10</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/06/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%80%E2%80%94%E2%80%94xml%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb,xml"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结之一——xml基础">Java web基础总结之一——xml基础</span>
+            <span class="post-date" title="2015-05-06 13:18:28">2015/05/06</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/08/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%89%E2%80%94%E2%80%94JavaWeb%E6%9C%8D%E5%8A%A1%E5%99%A8/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结三之—— java web 服务器">Java web基础总结三之—— java web 服务器</span>
+            <span class="post-date" title="2015-05-08 13:32:26">2015/05/08</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/12/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%83%E2%80%94%E2%80%94Filter%E4%B8%8EListener/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结七之—— Filter 与 Listener">Java web 基础总结七之—— Filter 与 Listener</span>
+            <span class="post-date" title="2015-05-12 13:38:50">2015/05/12</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/07/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%BA%8C%E2%80%94%E2%80%94http%E5%8D%8F%E8%AE%AE/"
+           data-tag="java,javaWeb,http"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结之二——http协议">Java web基础总结之二——http协议</span>
+            <span class="post-date" title="2015-05-07 16:19:28">2015/05/07</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/10/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%BA%94%E2%80%94%E2%80%94%20HttpServletRequest%E4%B8%8EHttpServletResponse/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结五之—— HttpServletRequest 与 HttpServletResponse">Java web 基础总结五之—— HttpServletRequest 与 HttpServletResponse</span>
+            <span class="post-date" title="2015-05-10 12:14:53">2015/05/10</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/17/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B9%9D%E2%80%94%E2%80%94jsp%E6%A0%87%E7%AD%BE/"
+           data-tag="java,javaWeb,jsp"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结八之—— jsp标签">Java web基础总结八之—— jsp标签</span>
+            <span class="post-date" title="2015-05-17 12:54:31">2015/05/17</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/12/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%85%AB%E2%80%94%E2%80%94jsp%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结八之—— jsp基础">Java web基础总结八之—— jsp基础</span>
+            <span class="post-date" title="2015-05-12 13:38:50">2015/05/12</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/17/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%8D%81%E2%80%94%E2%80%94jspEL%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="java,javaWeb,jsp"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结十之—— jsp EL表达式">Java web基础总结十之—— jsp EL表达式</span>
+            <span class="post-date" title="2015-05-17 12:54:31">2015/05/17</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/09/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%9B%9B%E2%80%94%E2%80%94Servlet%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结四之——Servlet基础">Java web基础总结四之——Servlet基础</span>
+            <span class="post-date" title="2015-05-09 13:04:05">2015/05/09</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-JavaWeb基础总结二——http协议" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Java web基础总结之二——http协议</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="java基础">java基础</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color5">java</a>
+            
+            <a class="color3">javaWeb</a>
+            
+            <a class="color5">http</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-04-05 15:32:08'>2015-05-07 16:19</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-web基础总结之二——http协议"><span class="toc-text">Java web基础总结之二——http协议</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#一．HTTP协议是什么？"><span class="toc-text">一．HTTP协议是什么？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#二．持久连接和非持久连接的区别"><span class="toc-text">二．持久连接和非持久连接的区别</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#三．HTTP的请求"><span class="toc-text">三．HTTP的请求</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-请求行"><span class="toc-text">1. 请求行</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-消息头"><span class="toc-text">2. 消息头</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#四．HTTP的响应"><span class="toc-text">四．HTTP的响应</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="Java-web基础总结之二——http协议"><a href="#Java-web基础总结之二——http协议" class="headerlink" title="Java web基础总结之二——http协议"></a>Java web基础总结之二——http协议</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;由于java web是基于B/S的，所以http协议是java web 最基础，也非常重要的知识。HTTP协议用于定义客户端与web服务器之间进行通信的格式。从web服务器中获得某个web资源或者web 服务器接受客户端的请求都需要遵守一定的通讯格式，就是http协议。</p>
+<h5 id="一．HTTP协议是什么？"><a href="#一．HTTP协议是什么？" class="headerlink" title="一．HTTP协议是什么？"></a>一．HTTP协议是什么？</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;HTTP协议是学习java web的基石，同时也是管理和维护一些复杂的WEB站点的必备的基础，如果你想要深入的理解java web的服务器的实现，就更需要掌握它。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;HTTP是hypertext transfer protocol（超文本传输协议）的简写，它是在TCP/IP协议之上的一个应用层协议，默认的端口是80，用于定义WEB浏览器与WEB服务器之间交换数据的格式和规范。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;HTTP协议是无状态的协议，是因为一个web服务器并不会保存关于客户机的任何的信息。在B/S架构中，web服务器总是打开的，具有固定的IP地址，同时服务成千上万的不同的浏览器。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;HTTP协议有两个版本：HTTP/1.0、HTTP/1.1。现在基本使用的都是HTTP/1.1。他们之间有一个重要的区别：在HTTP1.0协议中，客户端与web服务器建立连接后，只能获得一个web资源。HTTP1.1协议，允许客户端与web服务器建立连接后，在一个连接上获取多个web资源。也就是常说的持久连接。</p>
+<h5 id="二．持久连接和非持久连接的区别"><a href="#二．持久连接和非持久连接的区别" class="headerlink" title="二．持久连接和非持久连接的区别"></a>二．持久连接和非持久连接的区别</h5><p> &nbsp;&nbsp;&nbsp;&nbsp;一个web页面，也被称为文档。是由对象组成的，简单的说，对象就是文件，比如html文件，图片文件等等。大部分的web页面含有一个基本html文件以及多个引用对象。比如一个web页面含有一个基本的html文件和2个图片文件，那么这个web页面就有3个对象。基本html文件通过对象的URL地址对对象进行引用。URL地址由两部分组成：存放对象的服务器的主机名和对象相对于主机的路径名。例如    <a href="http://xxx.com/www/images/pic\_foot\_BNIA.png" target="_blank" rel="noopener">http://xxx.com/www/images/pic\_foot\_BNIA.png</a>  中的 xxx就是主机名，/www/images/pic_foot_BNIA.png就是路径名。</p>
+<p>   &nbsp;&nbsp;&nbsp;&nbsp;非持久连接就是当客户端请求一个web页面时，对每一个对象的请求/响应都是经过一个单独的TCP连接发送。例如，如果一个web页面包含一个基本html文件和5个JPEG的图片文件。则使用非持久连接时，用户请求这个页面，会建立6个TCP连接。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;持久连接则是对一个页面的请求，甚至在同一个服务器上的多个web时，都可以在单个的持久TCP连接上进行传送。比如上面的例子中，可能只需要一个持久的TCP连接。一般来说，如果一个连接经过一定的时间间隔没有被使用，HTTP服务器就会关闭这个连接。</p>
+<h5 id="三．HTTP的请求"><a href="#三．HTTP的请求" class="headerlink" title="三．HTTP的请求"></a>三．HTTP的请求</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;客户端的浏览器连上web服务器后，会向服务器请求某个web资源，称之为客户端向服务器发送了一个HTTP请求。一个完整的HTTP请求包括：一个请求行、一些消息头、和实体内容，其中的一些消息头和实体内容都是可选的，消息头和实体内容之间要用空行隔开。</p>
+<h6 id="1-请求行"><a href="#1-请求行" class="headerlink" title="1. 请求行"></a>1. 请求行</h6><p> &nbsp;&nbsp;&nbsp;&nbsp;请求行中需要注意的是请求方式，主要有：<br> POST、GET、HEAD、OPTIONS、DELETE、TRACE、PUT<br> ,我们常用的有：POST、GET 。其他的比较少遇到，这里就不多叙述了。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;POST或GET，都是用于客户端向服务器请求某个WEB资源，他们都可以带一些数据给服务器，但是他们有一定的区别：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;如请求方式为GET方式，则可以在请求的URL地址后以?的形式带上交给服务器的数据，多个数据之间以&amp;进行分隔，例如：</p>
+<p>   GET/aaa/bbb?name=ccc&amp;password=ddd HTTP/1.1</p>
+<p>   GET方式的特点：在URL地址后附带的参数是有限制的，其数据容量一般不能超过1K(和浏览器有关系)。可以看到，使用GET请求方式时，参数是显示在浏览器的输入框里的，所以是可见的。</p>
+<p>当请求方式为POST方式，则可以在请求的实体内容中向服务器发送数据，例如：</p>
+<pre><code>     POST /user/loginHTTP/1.1
+
+     Host:
+
+     Content-Type:application/x-www-form-urlencoded
+
+     Content-Length:28
+
+     name=aaa&amp;password=bbb</code></pre><p>   Post方式的特点：传送的数据量没有大小的限制，而且参数不会在浏览器的地址框里显示。</p>
+<h6 id="2-消息头"><a href="#2-消息头" class="headerlink" title="2. 消息头"></a>2. 消息头</h6><p>   http请求头是必须存在的，它携带了很多的重要的信息，比如客户端的浏览器的标识，下面是HTTP请求中的常用头：</p>
+<pre><code>Accept: text/html,image/*   
+
+Accept-Charset: ISO-8859-1
+
+Accept-Encoding: gzip,compress
+
+Accept-Language: en-us,zh-cn
+
+Host: http://www.csdn.net:80
+
+If-Modified-Since: Tue, 11 Jul 2010 18:23:51 GMT
+
+Referer: http:// http://www.csdn.net
+
+User-Agent: Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0)
+
+Cookie
+
+Connection: close/Keep-Alive  
+
+Date: Tue, 11 Jul 2010 18:23:51 GMT</code></pre><h5 id="四．HTTP的响应"><a href="#四．HTTP的响应" class="headerlink" title="四．HTTP的响应"></a>四．HTTP的响应</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;和HTTP的请求相对应，一个HTTP响应表示服务器向客户端回送的数据，它也包括三个部分：一个状态行、若干消息头、以及实体内容，其中的一些消息头和实体内容都是可选的，消息头和实体内容之间要用一个空行作为间隔。状态行中需要知道的就是状态码，状态码表示服务器对请求的处理结果，它是一个三位的十进制数。响应状态码总共分为5类，如下所示：</p>
+<pre><code>100～199
+
+表示成功接收请求，要求客户端继续提交下一次请求才能完成整个处理过程
+
+200～299
+
+表示成功接收请求并已完成整个处理过程，常用200
+
+300～399
+
+为完成请求，客户需进一步细化请求。例如，请求的资源已经移动一个新地址，常用302、307和304。比如304的重定向
+
+400～499
+
+客户端的请求有错误，常用如403的禁止访问和404的找不到资源
+
+500～599
+
+服务器出现错误，比如服务器端程序抛出了异常，常用 500。</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;和HTTP请求头一样，HTTP也有一些常用的响应头，如下所示：</p>
+<pre><code>Location: http:// www.csdn.net
+
+Server:apache tomcat
+
+Content-Encoding: gzip
+
+Content-Length: 80
+
+Content-Language: zh-cn
+
+Content-Type: text/html; charset=GB2312
+
+Last-Modified: Tue, 11 Jul 2010 18:23:51 GMT
+
+Refresh: 1;url=http://www.csdn.net
+
+Content-Disposition: attachment; filename=aaa.zip
+
+Transfer-Encoding: chunked 
+
+Set-Cookie:SS=Q0=5Lb_nQ; path=/aaa
+
+Expires: -1
+
+Cache-Control: no-cache 
+
+Pragma: no-cache  
+
+Connection: close/Keep-Alive  
+
+Date: Tue, 11 Jul 2000 18:23:51 GMT</code></pre><p>需要注意的是，有一些通用的消息头，既可以用于请求，也可以用于响应，比如：</p>
+<pre><code>  Cache-Control:no-cache    用于指定是否需要缓存
+  Pragma:no-cache   Pragma: no-cache兼容http 1.0 ，Cache-Control:no-cache是http 1.1新加的消息头。
+  Connection:close/Keep-Alive   这个就是控制是持久连接还是非持久连接。</code></pre>
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章指出任何有错误或不够清晰的表达。欢迎邮件讨论 scdxcc@gmail.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Java web基础总结之二——http协议</p>
+    
+    <p><span class="copy-title">本文作者:</span><a  title="Cheng Chen">Cheng Chen</a></p>
+    <p><span class="copy-title">发布时间:</span>2015-05-07, 16:19:28</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-05, 15:32:08</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2015/05/07/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%BA%8C%E2%80%94%E2%80%94http%E5%8D%8F%E8%AE%AE/" title="Java web基础总结之二——http协议">https://jmw.wiki/2015/05/07/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%BA%8C%E2%80%94%E2%80%94http%E5%8D%8F%E8%AE%AE/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '',
+            clientSecret: '',
+            repo: 'scdxcc.github.io',
+            owner: 'scdxcc',
+            admin: ['scdxcc'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2014-2020 scucc</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#java','#javaWeb','#xml','#http','#jsp',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #100e0e;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #434346;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

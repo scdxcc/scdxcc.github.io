@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Java web基础总结八之—— jsp基础 | Hexo</title>
+  <meta name="keywords" content=" java , javaWeb ">
+  <meta name="description" content="Java web基础总结八之—— jsp基础 | Hexo">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="var QZONE &#x3D; window.QZONE || {}; 	function imagezoom(imgobj, box_w, box_h) { 		var src_w &#x3D; imgobj.width; 		var src_h &#x3D; imgobj.height; 		var r1 &#x3D; src_w &#x2F; src_h, r2 &#x3D; box_w &#x2F; box_h; 		v">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://jmw.wiki/404.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="var QZONE &#x3D; window.QZONE || {}; 	function imagezoom(imgobj, box_w, box_h) { 		var src_w &#x3D; imgobj.width; 		var src_h &#x3D; imgobj.height; 		var r1 &#x3D; src_w &#x2F; src_h, r2 &#x3D; box_w &#x2F; box_h; 		v">
+<meta property="og:image" content="http://qzone.qq.com/gy/404/style/image/logo_tencentvolunteers.png">
+<meta property="og:image" content="http://qzone.qq.com/gy/404/style/image/logo_baobeihuijia.png">
+<meta property="article:published_time" content="2020-04-05T06:29:00.927Z">
+<meta property="article:modified_time" content="2020-04-04T14:21:38.132Z">
+<meta property="article:author" content="Cheng Chen">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://qzone.qq.com/gy/404/style/image/logo_tencentvolunteers.png">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>Cheng Chen</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/scdxcc" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="csdn" href="https://blog.csdn.net/qfycc92" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-csdn"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:scdxcc@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(10)</small></div></li>
+    
+        
+            
+            <li><div data-rel="java基础">java基础<small>(10)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="10">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://blog.csdn.net/qfycc92">csdn</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="以 in: 开头进行全文搜索" />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color5">java</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">javaWeb</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">xml</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">http</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">jsp</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="java基础 "
+           href="/2015/05/10/Java%20web%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%85%AD%E2%80%94%E2%80%94%20Cookie%E4%B8%8ESession/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结六之—— Cookie 与 Session">Java web 基础总结六之—— Cookie 与 Session</span>
+            <span class="post-date" title="2015-05-10 12:14:53">2015/05/10</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/06/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%80%E2%80%94%E2%80%94xml%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb,xml"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结之一——xml基础">Java web基础总结之一——xml基础</span>
+            <span class="post-date" title="2015-05-06 13:18:28">2015/05/06</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/08/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%89%E2%80%94%E2%80%94JavaWeb%E6%9C%8D%E5%8A%A1%E5%99%A8/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结三之—— java web 服务器">Java web基础总结三之—— java web 服务器</span>
+            <span class="post-date" title="2015-05-08 13:32:26">2015/05/08</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/12/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%83%E2%80%94%E2%80%94Filter%E4%B8%8EListener/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结七之—— Filter 与 Listener">Java web 基础总结七之—— Filter 与 Listener</span>
+            <span class="post-date" title="2015-05-12 13:38:50">2015/05/12</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/07/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%BA%8C%E2%80%94%E2%80%94http%E5%8D%8F%E8%AE%AE/"
+           data-tag="java,javaWeb,http"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结之二——http协议">Java web基础总结之二——http协议</span>
+            <span class="post-date" title="2015-05-07 16:19:28">2015/05/07</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/10/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%BA%94%E2%80%94%E2%80%94%20HttpServletRequest%E4%B8%8EHttpServletResponse/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结五之—— HttpServletRequest 与 HttpServletResponse">Java web 基础总结五之—— HttpServletRequest 与 HttpServletResponse</span>
+            <span class="post-date" title="2015-05-10 12:14:53">2015/05/10</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/17/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B9%9D%E2%80%94%E2%80%94jsp%E6%A0%87%E7%AD%BE/"
+           data-tag="java,javaWeb,jsp"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结八之—— jsp标签">Java web基础总结八之—— jsp标签</span>
+            <span class="post-date" title="2015-05-17 12:54:31">2015/05/17</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/12/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%85%AB%E2%80%94%E2%80%94jsp%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结八之—— jsp基础">Java web基础总结八之—— jsp基础</span>
+            <span class="post-date" title="2015-05-12 13:38:50">2015/05/12</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/17/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%8D%81%E2%80%94%E2%80%94jspEL%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="java,javaWeb,jsp"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结十之—— jsp EL表达式">Java web基础总结十之—— jsp EL表达式</span>
+            <span class="post-date" title="2015-05-17 12:54:31">2015/05/17</span>
+        </a>
+        
+        <a  class="java基础 "
+           href="/2015/05/09/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%9B%9B%E2%80%94%E2%80%94Servlet%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结四之——Servlet基础">Java web基础总结四之——Servlet基础</span>
+            <span class="post-date" title="2015-05-09 13:04:05">2015/05/09</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-JavaWeb基础总结八——jsp基础" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Java web基础总结八之—— jsp基础</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="java基础">java基础</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color5">java</a>
+            
+            <a class="color3">javaWeb</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-04-05 16:29:09'>2015-05-12 13:38</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-web-基础总结八之——-jsp-基础"><span class="toc-text">Java web 基础总结八之—— jsp 基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一．什么是-jsp？"><span class="toc-text">一．什么是 jsp？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二．jsp-的原理"><span class="toc-text">二．jsp 的原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三．Jsp-的语法简介"><span class="toc-text">三．Jsp 的语法简介</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-JSP-元素"><span class="toc-text">1.JSP 元素</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-JSP-脚本表达式"><span class="toc-text">2.JSP 脚本表达式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-JSP-脚本片断"><span class="toc-text">3. JSP 脚本片断</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-JSP-声明"><span class="toc-text">4. JSP 声明</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-JSP-注释"><span class="toc-text">5.JSP 注释</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-JSP-指令简介"><span class="toc-text">6. JSP 指令简介</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-page"><span class="toc-text">(1).page</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-Include"><span class="toc-text">(2). Include</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-taglib"><span class="toc-text">(3). taglib</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#四．jsp-的-9-个内置对象以及其中的-4-个域对象。"><span class="toc-text">四．jsp 的 9 个内置对象以及其中的 4 个域对象。</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-jsp-的-9-个内置对象"><span class="toc-text">1. jsp 的 9 个内置对象</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-java-web-的-4-个域对象："><span class="toc-text">2.      java web 的 4 个域对象：</span></a></li></ol></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Java-web-基础总结八之——-jsp-基础"><a href="#Java-web-基础总结八之——-jsp-基础" class="headerlink" title="Java web 基础总结八之—— jsp 基础"></a>Java web 基础总结八之—— jsp 基础</h3><h4 id="一．什么是-jsp？"><a href="#一．什么是-jsp？" class="headerlink" title="一．什么是 jsp？"></a>一．什么是 jsp？</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSP 是 Java ServerPages 的缩写，它和 servlet 一样，都是用于开发动态 web 资源的技术。在 servlet 中拼凑输出 html 代码时，非常麻烦。而 JSP 的最大的特点在于，写 jsp 就像在写 html，但是 html 只能为用户提供静态数据，而 Jsp 技术允许在页面中嵌套 java 代码，开发动态资源。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在随着前端越来越重要，很多的公司都会采取前后端分离的开发模式。即后端只提供返回 json 等格式的接口，而前端开发人员则通过对后端接口的请求处理 json 数据，做相应的展示。这样 jsp 就几乎很少用到。但是学习 java web，不能不学习 jsp。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSP 和 Servlet，都可以用于开发动态 web 资源。但在实际的开发中中，通常把 servlet 作为 web 应用中的控制器组件来使用，而把 JSP 技术作为数据显示模板来使用。即 servlet 只负责响应请求产生数据，并把数据通过转发技术带给 jsp，数据的显示 jsp 来做。</p>
+<h4 id="二．jsp-的原理"><a href="#二．jsp-的原理" class="headerlink" title="二．jsp 的原理"></a>二．jsp 的原理</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先需要明确的是，JSP 也是一个 servlet,所以它的运行原理和 servlet 类似。每个 JSP 页面在第一次被访问时，WEB 容器都会把请求交给 JSP 引擎（即一个 Java 程序）去处理。JSP 引擎先将 JSP 翻译成一个_jspServlet(实质上也是一个 servlet)，然后按照 servlet 的调用方式进行调用。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 JSP 第一次访问时会翻译成 servlet，所以第一次访问通常会比较慢，但第二次访问，JSP 引擎如果发现 JSP 没有变化，就不再翻译，而是直接调用，所以程序的执行效率不会受到影响。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当然，jsp 也可以配置为 web 应用启动加载。而且 jsp 也可以像 servlet 一样在 web.xml 中进行配置映射路径，但是通常都是通过 servlet 来访问相应的 jsp。</p>
+<p>例如：</p>
+<pre><code>&lt;servlet&gt;
+
+&lt;servlet-name&gt;HelloWorldJspServlet&lt;/servlet-name&gt;
+
+&lt;jsp-file&gt;/jsp/hello.jsp&lt;/jsp-file&gt;
+
+&lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+
+&lt;/servlet&gt;
+
+&lt;servlet-mapping&gt;
+
+&lt;servlet-name&gt; HelloWorldJspServlet&lt;/servlet-name&gt;
+
+&lt;url-pattern&gt;/hello.html&lt;/url-pattern&gt;
+
+&lt;/servlet-mapping&gt;</code></pre><h4 id="三．Jsp-的语法简介"><a href="#三．Jsp-的语法简介" class="headerlink" title="三．Jsp 的语法简介"></a>三．Jsp 的语法简介</h4><h5 id="1-JSP-元素"><a href="#1-JSP-元素" class="headerlink" title="1.JSP 元素"></a>1.JSP 元素</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSP 元素就是 JSP 页面中的 HTML 内容。Jsp 页面中可以定义 html 的标签。所以它定义了网页的基本骨架，定义了页面的结构和外观。例如 head, body。</p>
+<h5 id="2-JSP-脚本表达式"><a href="#2-JSP-脚本表达式" class="headerlink" title="2.JSP 脚本表达式"></a>2.JSP 脚本表达式</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSP 脚本表达式（expression）用于将程序数据输出到客户端，简单的说就是输出表达式所嵌套的 java 变量的值。语法是：&lt;%= 变量或表达式 %&gt;。例如，当前时间:&lt;%= new java.util.Date() %&gt; 。JSP 引擎在翻译脚本表达式时，会将程序数据转成字符串，然后在相应位置用 out.print(…)方法将数据输给客户端。需要注意的是 JSP 脚本表达式中的变量或表达式后面不能有分号。</p>
+<h5 id="3-JSP-脚本片断"><a href="#3-JSP-脚本片断" class="headerlink" title="3. JSP 脚本片断"></a>3. JSP 脚本片断</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSP 脚本片断（scriptlet）就是在 JSP 页面中编写多行 Java 代码，虽然通常我们并不会在一个 jsp 文件中嵌套太多的 java 代码。语法是：&lt;% java 代码%&gt;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;需要注意的是，JSP 脚本片断中只能出现 java 代码，不能出现其它模板元素，这是因为 JSP 引擎在翻译 JSP 页面中，会将 JSP 脚本片断中的 Java 代码将被原封不动地放到 Servlet 的_jspService 方法中。所以 JSP 脚本片断中的 Java 代码必须严格遵循 Java 语法，和 JSP 脚本表达式不同的是，每一个执行语句后面必须用分号结束。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在一个 JSP 页面中可以有多个脚本片断，在两个或多个脚本片断之间可以嵌入文本、HTML 标记和其他 JSP 元素。</p>
+<p>例如：</p>
+<pre><code>&lt;%
+
+String s1 = &quot;hello&quot;;
+
+out.println(s1);
+
+%&gt;
+
+&lt;p&gt;hello world!&lt;/p&gt;
+
+&lt;%
+
+String s2 = &quot;world!&quot;;
+
+out.println(s1+s2);
+
+%&gt;</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;多个脚本片断中的代码可以相互访问，犹如将所有的代码放在一对&lt;%%&gt;之中的情况。如：out.println(s1+s2);所以单个脚本片断中的 Java 语句可以是不完整的，但是，多个脚本片断组合后的结果必须是完整的 Java 语句。</p>
+<h5 id="4-JSP-声明"><a href="#4-JSP-声明" class="headerlink" title="4. JSP 声明"></a>4. JSP 声明</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSP 声明和 JSP 脚本片断不同，JSP 脚本片断中的 java 代码，默认会翻译到 servlet 的 service 方法中，而 Jsp 声明中的 java 代码被翻译到_jspService 方法的外面。语法：</p>
+<pre><code>&lt;%！ java 代码 %&gt;</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所以，JSP 声明可用于定义 JSP 页面转换成的 Servlet 程序的静态代码块、成员变量和方法 。 多个静态代码块、变量和函数可以定义在一个 JSP 声明中，也可以分别单独定义在多个 JSP 声明中。JSP 隐式对象的作用范围仅限于 Servlet 的_jspService 方法，所以在 JSP 声明中不能使用这些隐式对象。例如：</p>
+<pre><code>&lt;%!
+static
+{
+System.out.println(&quot;helloworld!&quot;);
+}
+%&gt;</code></pre><h5 id="5-JSP-注释"><a href="#5-JSP-注释" class="headerlink" title="5.JSP 注释"></a>5.JSP 注释</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSP 注释的语法是：&lt;%– 注释信息 –%&gt;。JSP 引擎在将 JSP 页面翻译成 Servlet 程序时，JSP 页面中被注释的内容。</p>
+<h5 id="6-JSP-指令简介"><a href="#6-JSP-指令简介" class="headerlink" title="6. JSP 指令简介"></a>6. JSP 指令简介</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSP 指令的基本语法格式：&lt;%@ 指令属性名=”值” %&gt;</p>
+<p>举例：&lt;%@page contentType=”text/html;charset=UTF-8” language=”java”%&gt;</p>
+<p>下面是几个比较常用的 jsp 指令。</p>
+<h6 id="1-page"><a href="#1-page" class="headerlink" title="(1).page"></a>(1).page</h6><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;page 指令的作用是定义 JSP 页面的各种属性，它作用的是整个 JSP 页面，所以为了保持程序的可读性和遵循良好的编程习惯，一般把 page 指令放在整个 JSP 页面的起始位置。</p>
+<p>JSP 2.0 规范中定义的 page 指令的完整语法：</p>
+<pre><code>&lt;%@ page
+
+    [ language=&quot;java&quot;]
+
+    [extends=&quot;package.class&quot; ]
+
+    [import=&quot;{package.class | package.*}, ...&quot; ]
+
+    [ session=&quot;true |false&quot; ]
+
+    [ buffer=&quot;none | 8kb |sizekb&quot; ]
+
+    [ autoFlush=&quot;true |false&quot; ]
+
+    [ isThreadSafe=&quot;true |false&quot; ]
+
+    [ info=&quot;text&quot; ]
+
+    [errorPage=&quot;relative_url&quot; ]
+
+    [ isErrorPage=&quot;true |false&quot; ]
+
+    [contentType=&quot;mimeType [ ;charset=characterSet ]&quot; | &quot;text/html ;charset=ISO-8859-1&quot; ]
+
+    [pageEncoding=&quot;characterSet | ISO-8859-1&quot; ]
+
+    [ isELIgnored=&quot;true |false&quot; ]
+
+%&gt;</code></pre><h6 id="2-Include"><a href="#2-Include" class="headerlink" title="(2). Include"></a>(2). Include</h6><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include 指令的作用是引入其它 JSP 页面，如果使用 include 指令引入了其它 JSP 页面，那么 JSP 引擎将把这两个 JSP 翻译成一个 servlet。所以 include 指令引入通常也称之为静态引入。</p>
+<p>语法：</p>
+<pre><code>&lt;%@include file=&quot;xx.jspf&quot;%&gt;</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中的 file 属性用于指定被引入文件的相对路径。需要注意的是 file 属性的值必须使用相对路径，如果以“/”开头，表示相对于当前 WEB 应用程序的根目录（注意不是站点根目录），否则，表示相对于当前文件。被引入的文件可以使用任意的扩展名，即使其扩展名是 html，JSP 引擎也会按照处理 jsp 页面的方式处理它里面的内容，JSP 规范建议使用.jspf（JSP fragments）作为静态引入文件的扩展名。由于使用 include 指令将会涉及到 2 个 JSP 页面，并会把 2 个 JSP 翻译成一个 servlet，所以这 2 个 JSP 页面的指令不能冲突。</p>
+<h6 id="3-taglib"><a href="#3-taglib" class="headerlink" title="(3). taglib"></a>(3). taglib</h6><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;taglib 指令用于在 JSP 页面中导入标签库。例如：</p>
+<pre><code>&lt;%@taglib uri=&quot;http://java.sun.com/jsp/jstl/core&quot; prefix=&quot;c&quot;%&gt;</code></pre><h4 id="四．jsp-的-9-个内置对象以及其中的-4-个域对象。"><a href="#四．jsp-的-9-个内置对象以及其中的-4-个域对象。" class="headerlink" title="四．jsp 的 9 个内置对象以及其中的 4 个域对象。"></a>四．jsp 的 9 个内置对象以及其中的 4 个域对象。</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSP 引擎在调用 JSP 对应的_jspServlet 时，会传递或创建 9 个与 web 开发相关的对象供_jspServlet 使用。JSP 技术的设计者为便于开发人员在编写 JSP 页面时获得这些 web 对象的引用，特意定义了 9 个相应的变量，开发人员在 JSP 页面中通过这些变量就可以快速获得这 9 大对象的引用。需要特别注意的是：JSP 隐式对象的作用范围仅限于 Servlet 的_jspService 方法，所以在 JSP 声明中不能使用这些隐式对象。</p>
+<h5 id="1-jsp-的-9-个内置对象"><a href="#1-jsp-的-9-个内置对象" class="headerlink" title="1. jsp 的 9 个内置对象"></a>1. jsp 的 9 个内置对象</h5><p>request：这个对象就是 HttpServletRequest，不多叙述</p>
+<p>response：这个对象就是 HttpServletResponse。</p>
+<p>config：就是 ServletConfig，在 servlet 中已经介绍过，作用是为 servlet 配置一些初始化参数，作用范围是一个 servlet。</p>
+<p>application：就是 ServletContext, 前面也介绍过，作用范围是整个 web 应用。</p>
+<p>exception：异常相关，用于处理异常。</p>
+<p>session: 就是 HttpSession，也不多说。</p>
+<p>page：就是 this 对象，代表当前的页面。</p>
+<p>out：out 隐式对象用于向客户端发送文本数据。 out 对象是通过调用 pageContext 对象的 getOut 方法返回的，其作用和用法与      ServletResponse.getWriter 方法返回的 PrintWriter 对象非常相似。 JSP 页面中的 out 隐式对象的类型为 JspWriter，JspWriter 相当于一种带缓存功能的 PrintWriter，设置 JSP 页面的 page 指令的 buffer 属性可以调整它的缓存大小，甚至关闭它的缓存。</p>
+<p>pageContext: pageContext 对象是 JSP 的一个非常重要的一个对象，它代表 JSP 页面的运行环境，这个对象不仅封装了对其它 8 大隐       式对象的引用，它自身还是一个域对象，可以用来保存数据。并且，这个对象还封装了 web 开发中经常涉及到的一些常用操作。     它有个非常重要的方法：findAttribute 方法，作用是查找各个域中的属性。EL 表达式就是通过它实现的。EL 表达式语句在执行       时，会调用 pageContext.findAttribute 方法，用标识符为关键字，分别从 page、request、session、application 四个域中查找相     应的对象，找到则返回相应对象，找不到则返回空字符串，而不是 null,可以避免异常。</p>
+<h5 id="2-java-web-的-4-个域对象："><a href="#2-java-web-的-4-个域对象：" class="headerlink" title="2.      java web 的 4 个域对象："></a>2.      java web 的 4 个域对象：</h5><p>这四个域中都可以保存一些属性，并且可以通过名字取出属性的值。</p>
+<p>pageContext（称为 page 域）：作用的范围最小，就是当前的 jsp 页面</p>
+<p>request（称为 request 域）：作用的范围为一个请求。</p>
+<p>session（称为 session 域）：就是 session，作用范围是一个客户端浏览器。</p>
+<p>servletContext（称为 application 域）：作用域最大，为整个 web 应用。</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章指出任何有错误或不够清晰的表达。欢迎邮件讨论 scdxcc@gmail.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Java web基础总结八之—— jsp基础</p>
+    
+    <p><span class="copy-title">本文作者:</span><a  title="Cheng Chen">Cheng Chen</a></p>
+    <p><span class="copy-title">发布时间:</span>2015-05-12, 13:38:50</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-05, 16:29:09</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2015/05/12/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%85%AB%E2%80%94%E2%80%94jsp%E5%9F%BA%E7%A1%80/" title="Java web基础总结八之—— jsp基础">https://jmw.wiki/2015/05/12/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%85%AB%E2%80%94%E2%80%94jsp%E5%9F%BA%E7%A1%80/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '',
+            clientSecret: '',
+            repo: 'scdxcc.github.io',
+            owner: 'scdxcc',
+            admin: ['scdxcc'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2014-2020 scucc</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#java','#javaWeb','#xml','#http','#jsp',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #100e0e;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #434346;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
