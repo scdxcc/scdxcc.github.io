@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>service mesh业界架构分析 | Hexo</title>
+  <meta name="keywords" content=" SOA , service mesh , 微服务 ">
+  <meta name="description" content="service mesh业界架构分析 | Hexo">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="var QZONE &#x3D; window.QZONE || {}; 	function imagezoom(imgobj, box_w, box_h) { 		var src_w &#x3D; imgobj.width; 		var src_h &#x3D; imgobj.height; 		var r1 &#x3D; src_w &#x2F; src_h, r2 &#x3D; box_w &#x2F; box_h; 		v">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://jmw.wiki/404.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="var QZONE &#x3D; window.QZONE || {}; 	function imagezoom(imgobj, box_w, box_h) { 		var src_w &#x3D; imgobj.width; 		var src_h &#x3D; imgobj.height; 		var r1 &#x3D; src_w &#x2F; src_h, r2 &#x3D; box_w &#x2F; box_h; 		v">
+<meta property="og:image" content="http://qzone.qq.com/gy/404/style/image/logo_tencentvolunteers.png">
+<meta property="og:image" content="http://qzone.qq.com/gy/404/style/image/logo_baobeihuijia.png">
+<meta property="article:published_time" content="2020-04-05T06:29:00.927Z">
+<meta property="article:modified_time" content="2020-04-04T14:21:38.132Z">
+<meta property="article:author" content="Cheng Chen">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://qzone.qq.com/gy/404/style/image/logo_tencentvolunteers.png">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>Cheng Chen</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/scdxcc" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="csdn" href="https://blog.csdn.net/qfycc92" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-csdn"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:scdxcc@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(25)</small></div></li>
+    
+        
+            
+            <li><div data-rel="java"><i class="fold iconfont icon-right"></i>java<small>(17)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="jdk源码">jdk源码<small>(7)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="javaWeb">javaWeb<small>(10)</small></div>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="运维"><i class="fold iconfont icon-right"></i>运维<small>(3)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="线上问题">线上问题<small>(3)</small></div>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+            <li><div data-rel="工具">工具<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="SOA">SOA<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="25">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://blog.csdn.net/qfycc92">csdn</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="以 in: 开头进行全文搜索" />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color5">java</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">jdk</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">oom</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">hibernate</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">jpa</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">javaWeb</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">jsp</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">xml</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">http</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">mysql</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">lock</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">maven</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">shell</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">SOA</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">service mesh</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">微服务</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">svn</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="java jdk源码 "
+           href="/2015/05/05/ArrayBlockingQueue/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="ArrayBlockingQueue 源码阅读与分析">ArrayBlockingQueue 源码阅读与分析</span>
+            <span class="post-date" title="2015-05-05 13:37:00">2015/05/05</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/04/28/ArrayList%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="ArrayList的序列化与反序列化">ArrayList的序列化与反序列化</span>
+            <span class="post-date" title="2015-04-28 19:17:00">2015/04/28</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/04/15/ArrayList%E7%9A%84%E5%8A%A8%E6%80%81%E6%89%A9%E5%AE%B9%E7%9A%84%E5%AE%9E%E7%8E%B0/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="ArrayList的动态扩容的实现">ArrayList的动态扩容的实现</span>
+            <span class="post-date" title="2015-04-15 19:37:00">2015/04/15</span>
+        </a>
+        
+        <a  class="运维 线上问题 "
+           href="/2019/06/19/JPA%20hibernate%E5%AF%BC%E8%87%B4%E7%9A%84%20oom%E9%97%AE%E9%A2%98/"
+           data-tag="java,oom,hibernate,jpa"
+           data-author="" >
+            <span class="post-title" title="JPA hibernate导致的 oom问题">JPA hibernate导致的 oom问题</span>
+            <span class="post-date" title="2019-06-19 19:37:00">2019/06/19</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/07/04/CopyOnWriteArrayList/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="CopyOnWriteArrayList 源码阅读与分析">CopyOnWriteArrayList 源码阅读与分析</span>
+            <span class="post-date" title="2015-07-04 12:14:44">2015/07/04</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/05/10/AtomicInteger/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="AtomicInteger源码分析——基于CAS的乐观锁实现">AtomicInteger源码分析——基于CAS的乐观锁实现</span>
+            <span class="post-date" title="2015-05-10 12:14:53">2015/05/10</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/05/19/HashMap%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E5%8F%8A%E5%86%B2%E7%AA%81%E5%A4%84%E7%90%86%E7%9A%84%E7%BB%86%E8%8A%82/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="HashMap源码分析及冲突处理的细节">HashMap源码分析及冲突处理的细节</span>
+            <span class="post-date" title="2015-05-19 12:14:53">2015/05/19</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/10/Java%20web%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%85%AD%E2%80%94%E2%80%94%20Cookie%E4%B8%8ESession/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结六—— Cookie 与 Session">Java web 基础总结六—— Cookie 与 Session</span>
+            <span class="post-date" title="2015-05-10 12:14:53">2015/05/10</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/17/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B9%9D%E2%80%94%E2%80%94jsp%E6%A0%87%E7%AD%BE/"
+           data-tag="java,javaWeb,jsp"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结九—— jsp标签">Java web基础总结九—— jsp标签</span>
+            <span class="post-date" title="2015-05-17 12:54:31">2015/05/17</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/06/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%80%E2%80%94%E2%80%94xml%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb,xml"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结一——xml基础">Java web基础总结一——xml基础</span>
+            <span class="post-date" title="2015-05-06 13:18:28">2015/05/06</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/08/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%89%E2%80%94%E2%80%94JavaWeb%E6%9C%8D%E5%8A%A1%E5%99%A8/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结三—— java web 服务器">Java web基础总结三—— java web 服务器</span>
+            <span class="post-date" title="2015-05-08 13:32:26">2015/05/08</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/12/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%83%E2%80%94%E2%80%94Filter%E4%B8%8EListener/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结七—— Filter 与 Listener">Java web 基础总结七—— Filter 与 Listener</span>
+            <span class="post-date" title="2015-05-12 13:38:50">2015/05/12</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/09/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%9B%9B%E2%80%94%E2%80%94Servlet%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结四——Servlet基础">Java web基础总结四——Servlet基础</span>
+            <span class="post-date" title="2015-05-09 13:04:05">2015/05/09</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/17/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%8D%81%E2%80%94%E2%80%94jspEL%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="java,javaWeb,jsp"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结十—— jsp EL表达式">Java web基础总结十—— jsp EL表达式</span>
+            <span class="post-date" title="2015-05-17 12:54:31">2015/05/17</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/12/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%85%AB%E2%80%94%E2%80%94jsp%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结八—— jsp基础">Java web基础总结八—— jsp基础</span>
+            <span class="post-date" title="2015-05-12 13:38:50">2015/05/12</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/07/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%BA%8C%E2%80%94%E2%80%94http%E5%8D%8F%E8%AE%AE/"
+           data-tag="java,javaWeb,http"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结二——http协议">Java web基础总结二——http协议</span>
+            <span class="post-date" title="2015-05-07 16:19:28">2015/05/07</span>
+        </a>
+        
+        <a  class="运维 线上问题 "
+           href="/2019/05/25/Lock%20wait%20timeout%20exceeded%E6%8E%92%E6%9F%A5/"
+           data-tag="mysql,lock"
+           data-author="" >
+            <span class="post-title" title="Lock wait timeout exceeded排查">Lock wait timeout exceeded排查</span>
+            <span class="post-date" title="2019-05-25 16:37:00">2019/05/25</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/05/25/jdk%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E4%B9%8B%E2%80%94%E2%80%94String%E7%B1%BB/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="jdk源码阅读之——String类">jdk源码阅读之——String类</span>
+            <span class="post-date" title="2015-05-25 13:37:00">2015/05/25</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/10/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%BA%94%E2%80%94%E2%80%94%20HttpServletRequest%E4%B8%8EHttpServletResponse/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结五—— HttpServletRequest 与 HttpServletResponse">Java web 基础总结五—— HttpServletRequest 与 HttpServletResponse</span>
+            <span class="post-date" title="2015-05-10 12:14:53">2015/05/10</span>
+        </a>
+        
+        <a  class="运维 线上问题 "
+           href="/2019/06/19/mybatis-plus%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%BD%93%E5%AF%BC%E8%87%B4%E7%9A%84oom/"
+           data-tag="java,oom"
+           data-author="" >
+            <span class="post-title" title="mybatis-plus使用不当导致的oom">mybatis-plus使用不当导致的oom</span>
+            <span class="post-date" title="2019-06-19 19:37:00">2019/06/19</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2015/05/25/maven%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"
+           data-tag="maven"
+           data-author="" >
+            <span class="post-title" title="maven使用手册">maven使用手册</span>
+            <span class="post-date" title="2015-05-25 13:37:00">2015/05/25</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2015/07/25/shell%E8%84%9A%E6%9C%AC%E6%9B%BF%E6%8D%A2%E7%BC%96%E8%BE%91jar%E5%8C%85%E7%9A%84%E6%96%87%E4%BB%B6/"
+           data-tag="shell"
+           data-author="" >
+            <span class="post-title" title="shell 脚本替换，编辑jar包">shell 脚本替换，编辑jar包</span>
+            <span class="post-date" title="2015-07-25 13:37:00">2015/07/25</span>
+        </a>
+        
+        <a  class="SOA "
+           href="/2019/07/19/%E4%B8%80.%20service%20mesh%20%E4%B8%9A%E7%95%8C%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90/"
+           data-tag="SOA,service mesh,微服务"
+           data-author="" >
+            <span class="post-title" title="service mesh业界架构分析">service mesh业界架构分析</span>
+            <span class="post-date" title="2019-07-19 19:37:00">2019/07/19</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2015/07/25/shell%E8%84%9A%E6%9C%AC%E7%A9%BA%E7%99%BD%E5%AD%97%E7%AC%A6%E9%97%AE%E9%A2%98/"
+           data-tag="shell"
+           data-author="" >
+            <span class="post-title" title="shell 脚本 M-BM- 字符问题">shell 脚本 M-BM- 字符问题</span>
+            <span class="post-date" title="2015-07-25 13:37:00">2015/07/25</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2015/05/25/svn%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"
+           data-tag="svn"
+           data-author="" >
+            <span class="post-title" title="svn使用手册">svn使用手册</span>
+            <span class="post-date" title="2015-05-25 13:37:00">2015/05/25</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-一. service mesh 业界架构分析" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">service mesh业界架构分析</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="SOA">SOA</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color4">SOA</a>
+            
+            <a class="color3">service mesh</a>
+            
+            <a class="color4">微服务</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-04-06 19:03:13'>2019-07-19 19:37</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一-service-mesh-业界架构分析"><span class="toc-text">一. service mesh 业界架构分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#一-Istio"><span class="toc-text">一. Istio</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Envoy"><span class="toc-text">Envoy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mixer"><span class="toc-text">Mixer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pilot"><span class="toc-text">Pilot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Citadel"><span class="toc-text">Citadel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Galley"><span class="toc-text">Galley</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#demo"><span class="toc-text">demo</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#-1"><span class="toc-text"></span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#-2"><span class="toc-text"></span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二-唯品会"><span class="toc-text">二. 唯品会</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#与Istio-的区别"><span class="toc-text">与Istio 的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Server端无入口Agent"><span class="toc-text">1. Server端无入口Agent</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Client端不基于IPTable劫持"><span class="toc-text">2. Client端不基于IPTable劫持</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-没有画大饼用的Mixer"><span class="toc-text">3. 没有画大饼用的Mixer</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-SideCar以DaemonSet形式运行"><span class="toc-text">4. SideCar以DaemonSet形式运行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-完全不依赖K8S和容器技术"><span class="toc-text">5. 完全不依赖K8S和容器技术</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三-sofa-mesh"><span class="toc-text">三. sofa mesh</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#与Istio-的区别-1"><span class="toc-text">与Istio 的区别:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-采用-Golang-编写的-MOSN-取代-Envoy"><span class="toc-text">1. 采用 Golang 编写的 MOSN 取代 Envoy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-合并Mixer到数据平面以解决性能瓶颈"><span class="toc-text">2. 合并Mixer到数据平面以解决性能瓶颈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-增强-Pilot-以实现更灵活的服务发现机制"><span class="toc-text">3. 增强 Pilot 以实现更灵活的服务发现机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-增加对-SOFARPC、Dubbo-的支持"><span class="toc-text">4. 增加对 SOFARPC、Dubbo 的支持</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#-3"><span class="toc-text"></span></a></li></ol></li></ol></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="一-service-mesh-业界架构分析"><a href="#一-service-mesh-业界架构分析" class="headerlink" title="一. service mesh 业界架构分析"></a>一. service mesh 业界架构分析</h1><h1 id="一-Istio"><a href="#一-Istio" class="headerlink" title="一. Istio"></a>一. Istio</h1><p><img src="https://cdn.nlark.com/yuque/0/2019/svg/328360/1557458871294-4e5dd31f-a653-4515-9882-de3533245eee.svg#align=left&display=inline&height=643&name=arch.svg&originHeight=150&originWidth=163&size=70101&status=done&width=699" alt="arch.svg"></p>
+<h1 id><a href="#" class="headerlink" title></a></h1><p>Istio 服务网格逻辑上分为<strong>数据平面</strong>和<strong>控制平面</strong>。</p>
+<ul>
+<li><p><strong>数据平面</strong>由一组以 sidecar 方式部署的智能代理（<a href="https://www.envoyproxy.io/" target="_blank" rel="noopener">Envoy</a>）组成。这些代理可以调节和控制微服务及 <a href="https://istio.io/zh/docs/concepts/policies-and-telemetry/" target="_blank" rel="noopener">Mixer</a> 之间所有的网络通信。</p>
+</li>
+<li><p><strong>控制平面</strong>负责管理和配置代理来路由流量。此外控制平面配置 Mixer 以实施策略和收集遥测数据。</p>
+</li>
+</ul>
+<h3 id="Envoy"><a href="#Envoy" class="headerlink" title="Envoy"></a>Envoy</h3><p>Istio 使用 <a href="https://www.envoyproxy.io/" target="_blank" rel="noopener">Envoy</a> 代理的扩展版本，Envoy 是以 C++ 开发的高性能代理，用于调解服务网格中所有服务的所有入站和出站流量。Envoy 的许多内置功能被 Istio 发扬光大，例如：</p>
+<ul>
+<li>动态服务发现</li>
+<li>负载均衡</li>
+<li>TLS 终止</li>
+<li>HTTP/2 &amp; gRPC 代理</li>
+<li>熔断器</li>
+<li>健康检查、基于百分比流量拆分的灰度发布</li>
+<li>故障注入</li>
+<li>丰富的度量指标</li>
+</ul>
+<p>Envoy 被部署为 <strong>sidecar</strong>，和对应服务在同一个 Kubernetes pod 中。这允许 Istio 将大量关于流量行为的信号作为<a href="https://istio.io/zh/docs/concepts/policies-and-telemetry/#%E5%B1%9E%E6%80%A7" target="_blank" rel="noopener">属性</a>提取出来，而这些属性又可以在 <a href="https://istio.io/zh/docs/concepts/policies-and-telemetry/" target="_blank" rel="noopener">Mixer</a> 中用于执行策略决策，并发送给监控系统，以提供整个网格行为的信息。<br>Sidecar 代理模型还可以将 Istio 的功能添加到现有部署中，而无需重新构建或重写代码。可以阅读更多来了解为什么我们在<a href="https://istio.io/zh/docs/concepts/what-is-istio/#%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87" target="_blank" rel="noopener">设计目标</a>中选择这种方式。</p>
+<h3 id="Mixer"><a href="#Mixer" class="headerlink" title="Mixer"></a>Mixer</h3><p><a href="https://istio.io/zh/docs/concepts/policies-and-telemetry/" target="_blank" rel="noopener">Mixer</a> 是一个独立于平台的组件，负责在服务网格上执行访问控制和使用策略，并从 Envoy 代理和其他服务收集遥测数据。代理提取请求级<a href="https://istio.io/zh/docs/concepts/policies-and-telemetry/#%E5%B1%9E%E6%80%A7" target="_blank" rel="noopener">属性</a>，发送到 Mixer 进行评估。有关属性提取和策略评估的更多信息，请参见 <a href="https://istio.io/zh/docs/concepts/policies-and-telemetry/#%E9%85%8D%E7%BD%AE%E6%A8%A1%E5%9E%8B" target="_blank" rel="noopener">Mixer 配置</a>。<br>Mixer 中包括一个灵活的插件模型，使其能够接入到各种主机环境和基础设施后端，从这些细节中抽象出 Envoy 代理和 Istio 管理的服务。</p>
+<h3 id="Pilot"><a href="#Pilot" class="headerlink" title="Pilot"></a>Pilot</h3><p><a href="https://istio.io/zh/docs/concepts/traffic-management/#pilot-%E5%92%8C-envoy" target="_blank" rel="noopener">Pilot</a> 为 Envoy sidecar 提供服务发现功能，为智能路由（例如 A/B 测试、金丝雀部署等）和弹性（超时、重试、熔断器等）提供流量管理功能。它将控制流量行为的高级路由规则转换为特定于 Envoy 的配置，并在运行时将它们传播到 sidecar。<br>Pilot 将平台特定的服务发现机制抽象化并将其合成为符合 <a href="https://github.com/envoyproxy/data-plane-api" target="_blank" rel="noopener">Envoy 数据平面 API</a> 的任何 sidecar 都可以使用的标准格式。这种松散耦合使得 Istio 能够在多种环境下运行（例如，Kubernetes、Consul、Nomad），同时保持用于流量管理的相同操作界面。</p>
+<h3 id="Citadel"><a href="#Citadel" class="headerlink" title="Citadel"></a>Citadel</h3><p><a href="https://istio.io/zh/docs/concepts/security/" target="_blank" rel="noopener">Citadel</a> 通过内置身份和凭证管理赋能强大的服务间和最终用户身份验证。可用于升级服务网格中未加密的流量，并为运维人员提供基于服务标识而不是网络控制的强制执行策略的能力。从 0.5 版本开始，Istio 支持<a href="https://istio.io/zh/docs/concepts/security/#%E8%AE%A4%E8%AF%81" target="_blank" rel="noopener">基于角色的访问控制</a>，以控制谁可以访问您的服务，而不是基于不稳定的三层或四层网络标识。</p>
+<h3 id="Galley"><a href="#Galley" class="headerlink" title="Galley"></a>Galley</h3><p>Galley 代表其他的 Istio 控制平面组件，用来验证用户编写的 Istio API 配置。随着时间的推移，Galley 将接管 Istio 获取配置、 处理和分配组件的顶级责任。它将负责将其他的 Istio 组件与从底层平台（例如 Kubernetes）获取用户配置的细节中隔离开来。</p>
+<h3 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h3><p><img src="https://cdn.nlark.com/yuque/0/2019/png/328360/1557459636213-bb74409c-06ef-49f9-88c9-0354e4029289.png#align=left&display=inline&height=456&name=image.png&originHeight=456&originWidth=771&size=60799&status=done&width=771" alt="image.png"></p>
+<h1 id="-1"><a href="#-1" class="headerlink" title></a></h1><p>refer: <a href="https://istio.io/docs/concepts/what-is-istio/" target="_blank" rel="noopener">https://istio.io/docs/concepts/what-is-istio/</a></p>
+<h1 id="-2"><a href="#-2" class="headerlink" title></a></h1><h1 id="二-唯品会"><a href="#二-唯品会" class="headerlink" title="二. 唯品会"></a>二. 唯品会</h1><p><img src="https://cdn.nlark.com/yuque/0/2019/png/328360/1557458547715-01a2bb68-78f7-4c57-94b0-6052f4822f34.png#align=left&display=inline&height=608&name=image.png&originHeight=608&originWidth=1080&size=142549&status=done&width=1080" alt="image.png"></p>
+<h3 id="与Istio-的区别"><a href="#与Istio-的区别" class="headerlink" title="与Istio 的区别"></a>与Istio 的区别</h3><h4 id="1-Server端无入口Agent"><a href="#1-Server端无入口Agent" class="headerlink" title="1. Server端无入口Agent"></a>1. Server端无入口Agent</h4><p>Server端前面也摆一个Agent，全部流量都流经它，有点重。<br>如果已经是OSP应用，当然没必要摆这个Agent了。如果是一个希望零成本变身的Web应用，那我们回顾一下服务端要做的事情：<br>一是服务注册和心跳。 我们在应用旁边摆了个轻量级的注册与心跳器来实现。<br>二是分布式调用链记录。分布式调用链监控原本就支持Web应用呀，不需要额外的Agent。<br>三是服务端授权，服务端限流之类必须在服务端进行的服务治理，相对没那么重要与常用，真的需要要时同样以Servlet WebFilter 或多语言SDK包方式提供。<br>所以，这个偏重的Agent暂时没有太大必要。</p>
+<h4 id="2-Client端不基于IPTable劫持"><a href="#2-Client端不基于IPTable劫持" class="headerlink" title="2. Client端不基于IPTable劫持"></a>2. Client端不基于IPTable劫持</h4><p>为了客户端零改造成本，Istio里基于IPTable，将Client发出的所有请求劫持到Proxy上。但IPTable的性能一般，尤其是一个环境里有很多应用时，性能更加跌得很厉害。所以我们就不节约客户端的一点点改造成本了。<br>基于SDK访问支持Local Proxy与Remote Proxy的完美切换，比IPTable的方案更加的高可用。<br>但如果某种语不想写这种复杂SDK，要么全部打到本地Proxy(等于IPTable），要么全部直接访问 Remote Proxy集群。</p>
+<h4 id="3-没有画大饼用的Mixer"><a href="#3-没有画大饼用的Mixer" class="headerlink" title="3. 没有画大饼用的Mixer"></a>3. 没有画大饼用的Mixer</h4><p>为了Proxy的可替换性，Istio里将与基础设施相关的部分都提取到中央的Mixer里，比如分布式调用链跟踪都分离出来这个太那啥了，每个请求发生前发生后都要调用一下这个Mixer，一个是性能，一个是中央化的容量限制。 虽然理解Google架构师们为了画大饼的无奈，但自用体系，不需要考虑Proxy的可替换性时，还是把该下沉到Proxy的下沉下去。</p>
+<h4 id="4-SideCar以DaemonSet形式运行"><a href="#4-SideCar以DaemonSet形式运行" class="headerlink" title="4. SideCar以DaemonSet形式运行"></a>4. SideCar以DaemonSet形式运行</h4><p>因为是Java，堆内堆外要3G左右，所以每台宿主机只运行一个Proxy。 如果版本已稳定闭上眼睛把它打进Pod里也可以的，不是原则性的问题。</p>
+<h4 id="5-完全不依赖K8S和容器技术"><a href="#5-完全不依赖K8S和容器技术" class="headerlink" title="5. 完全不依赖K8S和容器技术"></a>5. 完全不依赖K8S和容器技术</h4><p>这么一路走来，当然不会依赖于K8S。目前Istio们为了节约开发精力而完全依赖K8S，其实也大大局限了它们的适用范围。</p>
+<p>refer: <a href="http://calvin1978.blogcn.com/?p=1779" target="_blank" rel="noopener">http://calvin1978.blogcn.com/?p=1779</a></p>
+<h1 id="三-sofa-mesh"><a href="#三-sofa-mesh" class="headerlink" title="三. sofa mesh"></a>三. sofa mesh</h1><p><img src="https://cdn.nlark.com/yuque/0/2019/png/328360/1557459843539-5131dfa9-c5b7-43a3-bc7d-50ad93ad71ac.png#align=left&display=inline&height=1804&name=image.png&originHeight=1804&originWidth=2160&size=276027&status=done&width=2160" alt="image.png"></p>
+<h3 id="与Istio-的区别-1"><a href="#与Istio-的区别-1" class="headerlink" title="与Istio 的区别:"></a>与Istio 的区别:</h3><h4 id="1-采用-Golang-编写的-MOSN-取代-Envoy"><a href="#1-采用-Golang-编写的-MOSN-取代-Envoy" class="headerlink" title="1. 采用 Golang 编写的 MOSN 取代 Envoy"></a>1. 采用 Golang 编写的 MOSN 取代 Envoy</h4><h4 id="2-合并Mixer到数据平面以解决性能瓶颈"><a href="#2-合并Mixer到数据平面以解决性能瓶颈" class="headerlink" title="2. 合并Mixer到数据平面以解决性能瓶颈"></a>2. 合并Mixer到数据平面以解决性能瓶颈</h4><h4 id="3-增强-Pilot-以实现更灵活的服务发现机制"><a href="#3-增强-Pilot-以实现更灵活的服务发现机制" class="headerlink" title="3. 增强 Pilot 以实现更灵活的服务发现机制"></a>3. 增强 Pilot 以实现更灵活的服务发现机制</h4><h4 id="4-增加对-SOFARPC、Dubbo-的支持"><a href="#4-增加对-SOFARPC、Dubbo-的支持" class="headerlink" title="4. 增加对 SOFARPC、Dubbo 的支持"></a>4. 增加对 SOFARPC、Dubbo 的支持</h4><h4 id="-3"><a href="#-3" class="headerlink" title></a></h4><p>refer: <a href="https://www.sofastack.tech/sofa-mesh/docs/Home" target="_blank" rel="noopener">https://www.sofastack.tech/sofa-mesh/docs/Home</a></p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章指出任何有错误或不够清晰的表达。欢迎邮件讨论 scdxcc@gmail.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>service mesh业界架构分析</p>
+    
+    <p><span class="copy-title">本文作者:</span><a  title="Cheng Chen">Cheng Chen</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-07-19, 19:37:00</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-06, 19:03:13</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/07/19/%E4%B8%80.%20service%20mesh%20%E4%B8%9A%E7%95%8C%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90/" title="service mesh业界架构分析">https://jmw.wiki/2019/07/19/%E4%B8%80.%20service%20mesh%20%E4%B8%9A%E7%95%8C%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '',
+            clientSecret: '',
+            repo: 'scdxcc.github.io',
+            owner: 'scdxcc',
+            admin: ['scdxcc'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2014-2020 scucc</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#java','#jdk','#oom','#hibernate','#jpa','#javaWeb','#jsp','#xml','#http','#mysql','#lock','#maven','#shell','#SOA','#service mesh','#微服务','#svn',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #100e0e;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #434346;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

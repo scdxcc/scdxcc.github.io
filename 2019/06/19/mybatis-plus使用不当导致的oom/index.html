@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>mybatis-plus使用不当导致的oom | Hexo</title>
+  <meta name="keywords" content=" java , oom ">
+  <meta name="description" content="mybatis-plus使用不当导致的oom | Hexo">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="var QZONE &#x3D; window.QZONE || {}; 	function imagezoom(imgobj, box_w, box_h) { 		var src_w &#x3D; imgobj.width; 		var src_h &#x3D; imgobj.height; 		var r1 &#x3D; src_w &#x2F; src_h, r2 &#x3D; box_w &#x2F; box_h; 		v">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://jmw.wiki/404.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="var QZONE &#x3D; window.QZONE || {}; 	function imagezoom(imgobj, box_w, box_h) { 		var src_w &#x3D; imgobj.width; 		var src_h &#x3D; imgobj.height; 		var r1 &#x3D; src_w &#x2F; src_h, r2 &#x3D; box_w &#x2F; box_h; 		v">
+<meta property="og:image" content="http://qzone.qq.com/gy/404/style/image/logo_tencentvolunteers.png">
+<meta property="og:image" content="http://qzone.qq.com/gy/404/style/image/logo_baobeihuijia.png">
+<meta property="article:published_time" content="2020-04-05T06:29:00.927Z">
+<meta property="article:modified_time" content="2020-04-04T14:21:38.132Z">
+<meta property="article:author" content="Cheng Chen">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://qzone.qq.com/gy/404/style/image/logo_tencentvolunteers.png">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>Cheng Chen</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/scdxcc" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="csdn" href="https://blog.csdn.net/qfycc92" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-csdn"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:scdxcc@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(25)</small></div></li>
+    
+        
+            
+            <li><div data-rel="java"><i class="fold iconfont icon-right"></i>java<small>(17)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="jdk源码">jdk源码<small>(7)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="javaWeb">javaWeb<small>(10)</small></div>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="运维"><i class="fold iconfont icon-right"></i>运维<small>(3)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="线上问题">线上问题<small>(3)</small></div>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+            <li><div data-rel="工具">工具<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="SOA">SOA<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="25">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://blog.csdn.net/qfycc92">csdn</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="以 in: 开头进行全文搜索" />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color5">java</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">jdk</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">oom</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">hibernate</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">jpa</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">javaWeb</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">jsp</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">xml</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">http</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">mysql</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">lock</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">maven</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">shell</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">SOA</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">service mesh</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">微服务</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">svn</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="java jdk源码 "
+           href="/2015/05/05/ArrayBlockingQueue/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="ArrayBlockingQueue 源码阅读与分析">ArrayBlockingQueue 源码阅读与分析</span>
+            <span class="post-date" title="2015-05-05 13:37:00">2015/05/05</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/04/28/ArrayList%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="ArrayList的序列化与反序列化">ArrayList的序列化与反序列化</span>
+            <span class="post-date" title="2015-04-28 19:17:00">2015/04/28</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/04/15/ArrayList%E7%9A%84%E5%8A%A8%E6%80%81%E6%89%A9%E5%AE%B9%E7%9A%84%E5%AE%9E%E7%8E%B0/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="ArrayList的动态扩容的实现">ArrayList的动态扩容的实现</span>
+            <span class="post-date" title="2015-04-15 19:37:00">2015/04/15</span>
+        </a>
+        
+        <a  class="运维 线上问题 "
+           href="/2019/06/19/JPA%20hibernate%E5%AF%BC%E8%87%B4%E7%9A%84%20oom%E9%97%AE%E9%A2%98/"
+           data-tag="java,oom,hibernate,jpa"
+           data-author="" >
+            <span class="post-title" title="JPA hibernate导致的 oom问题">JPA hibernate导致的 oom问题</span>
+            <span class="post-date" title="2019-06-19 19:37:00">2019/06/19</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/07/04/CopyOnWriteArrayList/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="CopyOnWriteArrayList 源码阅读与分析">CopyOnWriteArrayList 源码阅读与分析</span>
+            <span class="post-date" title="2015-07-04 12:14:44">2015/07/04</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/05/10/AtomicInteger/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="AtomicInteger源码分析——基于CAS的乐观锁实现">AtomicInteger源码分析——基于CAS的乐观锁实现</span>
+            <span class="post-date" title="2015-05-10 12:14:53">2015/05/10</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/05/19/HashMap%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E5%8F%8A%E5%86%B2%E7%AA%81%E5%A4%84%E7%90%86%E7%9A%84%E7%BB%86%E8%8A%82/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="HashMap源码分析及冲突处理的细节">HashMap源码分析及冲突处理的细节</span>
+            <span class="post-date" title="2015-05-19 12:14:53">2015/05/19</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/10/Java%20web%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%85%AD%E2%80%94%E2%80%94%20Cookie%E4%B8%8ESession/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结六—— Cookie 与 Session">Java web 基础总结六—— Cookie 与 Session</span>
+            <span class="post-date" title="2015-05-10 12:14:53">2015/05/10</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/17/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B9%9D%E2%80%94%E2%80%94jsp%E6%A0%87%E7%AD%BE/"
+           data-tag="java,javaWeb,jsp"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结九—— jsp标签">Java web基础总结九—— jsp标签</span>
+            <span class="post-date" title="2015-05-17 12:54:31">2015/05/17</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/06/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%80%E2%80%94%E2%80%94xml%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb,xml"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结一——xml基础">Java web基础总结一——xml基础</span>
+            <span class="post-date" title="2015-05-06 13:18:28">2015/05/06</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/08/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%89%E2%80%94%E2%80%94JavaWeb%E6%9C%8D%E5%8A%A1%E5%99%A8/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结三—— java web 服务器">Java web基础总结三—— java web 服务器</span>
+            <span class="post-date" title="2015-05-08 13:32:26">2015/05/08</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/12/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%B8%83%E2%80%94%E2%80%94Filter%E4%B8%8EListener/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结七—— Filter 与 Listener">Java web 基础总结七—— Filter 与 Listener</span>
+            <span class="post-date" title="2015-05-12 13:38:50">2015/05/12</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/09/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%9B%9B%E2%80%94%E2%80%94Servlet%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结四——Servlet基础">Java web基础总结四——Servlet基础</span>
+            <span class="post-date" title="2015-05-09 13:04:05">2015/05/09</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/17/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%8D%81%E2%80%94%E2%80%94jspEL%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="java,javaWeb,jsp"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结十—— jsp EL表达式">Java web基础总结十—— jsp EL表达式</span>
+            <span class="post-date" title="2015-05-17 12:54:31">2015/05/17</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/12/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E5%85%AB%E2%80%94%E2%80%94jsp%E5%9F%BA%E7%A1%80/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结八—— jsp基础">Java web基础总结八—— jsp基础</span>
+            <span class="post-date" title="2015-05-12 13:38:50">2015/05/12</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/07/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%BA%8C%E2%80%94%E2%80%94http%E5%8D%8F%E8%AE%AE/"
+           data-tag="java,javaWeb,http"
+           data-author="" >
+            <span class="post-title" title="Java web基础总结二——http协议">Java web基础总结二——http协议</span>
+            <span class="post-date" title="2015-05-07 16:19:28">2015/05/07</span>
+        </a>
+        
+        <a  class="运维 线上问题 "
+           href="/2019/05/25/Lock%20wait%20timeout%20exceeded%E6%8E%92%E6%9F%A5/"
+           data-tag="mysql,lock"
+           data-author="" >
+            <span class="post-title" title="Lock wait timeout exceeded排查">Lock wait timeout exceeded排查</span>
+            <span class="post-date" title="2019-05-25 16:37:00">2019/05/25</span>
+        </a>
+        
+        <a  class="java jdk源码 "
+           href="/2015/05/25/jdk%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E4%B9%8B%E2%80%94%E2%80%94String%E7%B1%BB/"
+           data-tag="java,jdk"
+           data-author="" >
+            <span class="post-title" title="jdk源码阅读之——String类">jdk源码阅读之——String类</span>
+            <span class="post-date" title="2015-05-25 13:37:00">2015/05/25</span>
+        </a>
+        
+        <a  class="java javaWeb "
+           href="/2015/05/10/JavaWeb%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E4%BA%94%E2%80%94%E2%80%94%20HttpServletRequest%E4%B8%8EHttpServletResponse/"
+           data-tag="java,javaWeb"
+           data-author="" >
+            <span class="post-title" title="Java web 基础总结五—— HttpServletRequest 与 HttpServletResponse">Java web 基础总结五—— HttpServletRequest 与 HttpServletResponse</span>
+            <span class="post-date" title="2015-05-10 12:14:53">2015/05/10</span>
+        </a>
+        
+        <a  class="运维 线上问题 "
+           href="/2019/06/19/mybatis-plus%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%BD%93%E5%AF%BC%E8%87%B4%E7%9A%84oom/"
+           data-tag="java,oom"
+           data-author="" >
+            <span class="post-title" title="mybatis-plus使用不当导致的oom">mybatis-plus使用不当导致的oom</span>
+            <span class="post-date" title="2019-06-19 19:37:00">2019/06/19</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2015/05/25/maven%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"
+           data-tag="maven"
+           data-author="" >
+            <span class="post-title" title="maven使用手册">maven使用手册</span>
+            <span class="post-date" title="2015-05-25 13:37:00">2015/05/25</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2015/07/25/shell%E8%84%9A%E6%9C%AC%E6%9B%BF%E6%8D%A2%E7%BC%96%E8%BE%91jar%E5%8C%85%E7%9A%84%E6%96%87%E4%BB%B6/"
+           data-tag="shell"
+           data-author="" >
+            <span class="post-title" title="shell 脚本替换，编辑jar包">shell 脚本替换，编辑jar包</span>
+            <span class="post-date" title="2015-07-25 13:37:00">2015/07/25</span>
+        </a>
+        
+        <a  class="SOA "
+           href="/2019/07/19/%E4%B8%80.%20service%20mesh%20%E4%B8%9A%E7%95%8C%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90/"
+           data-tag="SOA,service mesh,微服务"
+           data-author="" >
+            <span class="post-title" title="service mesh业界架构分析">service mesh业界架构分析</span>
+            <span class="post-date" title="2019-07-19 19:37:00">2019/07/19</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2015/07/25/shell%E8%84%9A%E6%9C%AC%E7%A9%BA%E7%99%BD%E5%AD%97%E7%AC%A6%E9%97%AE%E9%A2%98/"
+           data-tag="shell"
+           data-author="" >
+            <span class="post-title" title="shell 脚本 M-BM- 字符问题">shell 脚本 M-BM- 字符问题</span>
+            <span class="post-date" title="2015-07-25 13:37:00">2015/07/25</span>
+        </a>
+        
+        <a  class="工具 "
+           href="/2015/05/25/svn%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"
+           data-tag="svn"
+           data-author="" >
+            <span class="post-title" title="svn使用手册">svn使用手册</span>
+            <span class="post-date" title="2015-05-25 13:37:00">2015/05/25</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-mybatis-plus使用不当导致的oom" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">mybatis-plus使用不当导致的oom</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="运维">运维</a>/
+            
+                <a  data-rel="线上问题">线上问题</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color5">java</a>
+            
+            <a class="color4">oom</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-04-06 18:47:54'>2019-06-19 19:37</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mybatis-plus使用不当导致的oom"><span class="toc-text">mybatis-plus使用不当导致的oom</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-现象"><span class="toc-text">1.现象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-排查"><span class="toc-text">2.排查</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-之前配置了启动参数，发生oom时，自动dump-堆的快照。"><span class="toc-text">2.1 之前配置了启动参数，发生oom时，自动dump 堆的快照。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-使用mat-工具分析堆dump-文件。"><span class="toc-text">2.2 使用mat 工具分析堆dump 文件。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-把dump的堆快照下载到本地。"><span class="toc-text">2.2.1 把dump的堆快照下载到本地。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-下载mat-。"><span class="toc-text">2.2.2 下载mat 。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-3-打开mat，选择要分析的dump-文件-。"><span class="toc-text">2.2.3 打开mat，选择要分析的dump 文件 。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-4-利用mat-分析堆dump-文件-。"><span class="toc-text">2.2.4 利用mat 分析堆dump 文件 。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-总览"><span class="toc-text">1.总览</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-histogram页面"><span class="toc-text">2. histogram页面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-查看引用链"><span class="toc-text">3. 查看引用链</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-通过日志时间和线程名去排查日志。"><span class="toc-text">4. 通过日志时间和线程名去排查日志。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-定位问题代码，com-baomidou-mybatis-plus框架的副作用。"><span class="toc-text">5. 定位问题代码，com.baomidou.mybatis-plus框架的副作用。</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-发现问题代码"><span class="toc-text">1. 发现问题代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-com-baomidou-mybatis-plus框架的副作用"><span class="toc-text">2.com.baomidou.mybatis-plus框架的副作用</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-结论与思考"><span class="toc-text">3.结论与思考</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="mybatis-plus使用不当导致的oom"><a href="#mybatis-plus使用不当导致的oom" class="headerlink" title="mybatis-plus使用不当导致的oom"></a>mybatis-plus使用不当导致的oom</h1><h1 id="1-现象"><a href="#1-现象" class="headerlink" title="1.现象"></a>1.现象</h1><pre><code>    还是在这个创业公司，一个新上线几天的项目，高峰期突然收到异常报警，线上出现oom异常，jmap 发现内存被占满，查看gc log 发现oom之前频繁Full GC。</code></pre><h1 id="2-排查"><a href="#2-排查" class="headerlink" title="2.排查"></a>2.排查</h1><h2 id="2-1-之前配置了启动参数，发生oom时，自动dump-堆的快照。"><a href="#2-1-之前配置了启动参数，发生oom时，自动dump-堆的快照。" class="headerlink" title="2.1 之前配置了启动参数，发生oom时，自动dump 堆的快照。"></a>2.1 之前配置了启动参数，发生oom时，自动dump 堆的快照。</h2><p><img src="https://cdn.nlark.com/yuque/0/2020/png/328360/1582801540156-216f0a40-f6a5-44a3-9034-82b506c22935.png#align=left&display=inline&height=89&name=image.png&originHeight=178&originWidth=2158&size=498260&status=done&style=none&width=1079" alt="image.png"><br>路径是 ：/root/logs/crm_customer_java.hprof ，gc log 也是在这个目录</p>
+<h2 id="2-2-使用mat-工具分析堆dump-文件。"><a href="#2-2-使用mat-工具分析堆dump-文件。" class="headerlink" title="2.2 使用mat 工具分析堆dump 文件。"></a>2.2 使用mat 工具分析堆dump 文件。</h2><h3 id="2-2-1-把dump的堆快照下载到本地。"><a href="#2-2-1-把dump的堆快照下载到本地。" class="headerlink" title="2.2.1 把dump的堆快照下载到本地。"></a>2.2.1 把dump的堆快照下载到本地。</h3><pre><code>    之前试过下载测试环境的，发现文件很大，本地机器的网络比较慢。剑圣压缩了一下，发现虽然是二进制文件，压缩率还是挺高的，1.2G压缩完不到300M。以后下载的时候先压缩，然后再下载到本地分析。</code></pre><h3 id="2-2-2-下载mat-。"><a href="#2-2-2-下载mat-。" class="headerlink" title="2.2.2 下载mat 。"></a>2.2.2 下载mat 。</h3><p>下载地址：<a href="https://www.eclipse.org/mat/downloads.php" target="_blank" rel="noopener">https://www.eclipse.org/mat/downloads.php</a><br>注意：mac上有bug,解压完双击打开会报错，需要到包目录里面打开。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/328360/1582801617304-d4bdcd6a-3167-43cd-ab4c-9539495b341a.png#align=left&display=inline&height=353&name=image.png&originHeight=706&originWidth=1614&size=840584&status=done&style=none&width=807" alt="image.png"></p>
+<p>如果导入dump文件报这个错：<br>Dominator tree not available. Open the Dominator Tree or delete indices and parse again.<br>可以重新建个文件夹把快照文件重新复制过去，然后重新打开一次。</p>
+<h3 id="2-2-3-打开mat，选择要分析的dump-文件-。"><a href="#2-2-3-打开mat，选择要分析的dump-文件-。" class="headerlink" title="2.2.3 打开mat，选择要分析的dump 文件 。"></a>2.2.3 打开mat，选择要分析的dump 文件 。</h3><p>右上角，File -&gt;open file ,选择对应的文件就可以。如果堆快照大于1G，改一下mat的最大堆内存参数，mat 默认 -Xmx 是1024M。路径：<br><img src="https://cdn.nlark.com/yuque/0/2020/png/328360/1582801630723-2333bc70-9aa9-4a15-ad79-763d69f27b8f.png#align=left&display=inline&height=195&name=image.png&originHeight=390&originWidth=802&size=232742&status=done&style=none&width=401" alt="image.png"></p>
+<h3 id="2-2-4-利用mat-分析堆dump-文件-。"><a href="#2-2-4-利用mat-分析堆dump-文件-。" class="headerlink" title="2.2.4 利用mat 分析堆dump 文件 。"></a>2.2.4 利用mat 分析堆dump 文件 。</h3><h4 id="1-总览"><a href="#1-总览" class="headerlink" title="1.总览"></a>1.总览</h4><p><img src="https://cdn.nlark.com/yuque/0/2020/png/328360/1582801645630-52d40063-d0dd-40de-9564-cb6de349f4cf.png#align=left&display=inline&height=700&name=image.png&originHeight=1400&originWidth=1974&size=806169&status=done&style=none&width=987" alt="image.png"><br>会显示一个总体的概况，最大的几个对象的占比，像这个少量的一些类的对象占用大量的内存，会直接会提示检测到泄漏。</p>
+<h4 id="2-histogram页面"><a href="#2-histogram页面" class="headerlink" title="2. histogram页面"></a>2. histogram页面</h4><p>   这里会直观的展示所有的类的对象的个数和直接，间接占用的内存大小，最上面上面支持正则表达式查询，比如查我们自己的包下的对象。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/328360/1586169400543-8fa34b89-9046-4720-8617-9c4194a7e9f5.png#align=left&display=inline&height=648&name=1582801764663-7d8f7e72-750f-47f1-8656-ab4a01cb3142.png&originHeight=648&originWidth=1492&size=742521&status=done&style=none&width=1492" alt="1582801764663-7d8f7e72-750f-47f1-8656-ab4a01cb3142.png"><br>发现 com.wlc.crm.customer.entity.OperationRecordEntity 这个类有42万个对象，占用内存383m.</p>
+<h4 id="3-查看引用链"><a href="#3-查看引用链" class="headerlink" title="3. 查看引用链"></a>3. 查看引用链</h4><p>排除软引用，弱引用，虚引用，只看强引用<br><img src="https://cdn.nlark.com/yuque/0/2020/png/328360/1586169488279-340c4268-7d24-4f99-918a-72931965849b.png#align=left&display=inline&height=820&name=1582801748800-52efbe8a-0fb3-4377-92d0-8a5d56834323.png&originHeight=820&originWidth=2424&size=955692&status=done&style=none&width=2424" alt="1582801748800-52efbe8a-0fb3-4377-92d0-8a5d56834323.png"></p>
+<p>打开后，会发现主要是被tomcat线程池中的三个线程引用，说明是在接口请求中发生的。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/328360/1586169922454-91a1653f-c603-4bbc-a6ab-86fec6e3fa7c.png#align=left&display=inline&height=1376&name=1582801798163-8e7f5caf-0d5f-4afb-a693-a046776b54e3.png&originHeight=1376&originWidth=1860&size=2742316&status=done&style=none&width=1860" alt="1582801798163-8e7f5caf-0d5f-4afb-a693-a046776b54e3.png"></p>
+<h4 id="4-通过日志时间和线程名去排查日志。"><a href="#4-通过日志时间和线程名去排查日志。" class="headerlink" title="4. 通过日志时间和线程名去排查日志。"></a>4. 通过日志时间和线程名去排查日志。</h4><p><img src="https://cdn.nlark.com/yuque/0/2020/png/328360/1586169591006-177b1de3-5da9-44bc-80ce-f6b56123bf04.png#align=left&display=inline&height=788&name=1582801817740-582e87b8-00d9-46b2-b590-09553fdab3fd.png&originHeight=788&originWidth=2828&size=2353889&status=done&style=none&width=2828" alt="1582801817740-582e87b8-00d9-46b2-b590-09553fdab3fd.png"></p>
+<p>   可以找到出问题的sql,因为之前加过日志的trace_id,所以根据这个trance_id 1560944743854 可以很方便的查找调用链，找到问题的源头是 /xxx/clue/statisticsForMenu 这个接口。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/328360/1586169683920-5986c2af-7d05-4df6-b347-30b32122fda5.png#align=left&display=inline&height=370&name=1582801835902-2b76e9c2-c560-44b5-8314-cc995646581c.png&originHeight=370&originWidth=2102&size=889778&status=done&style=none&width=2102" alt="1582801835902-2b76e9c2-c560-44b5-8314-cc995646581c.png"></p>
+<h4 id="5-定位问题代码，com-baomidou-mybatis-plus框架的副作用。"><a href="#5-定位问题代码，com-baomidou-mybatis-plus框架的副作用。" class="headerlink" title="5. 定位问题代码，com.baomidou.mybatis-plus框架的副作用。"></a>5. 定位问题代码，com.baomidou.mybatis-plus框架的副作用。</h4><h5 id="1-发现问题代码"><a href="#1-发现问题代码" class="headerlink" title="1. 发现问题代码"></a>1. 发现问题代码</h5><p><img src="https://cdn.nlark.com/yuque/0/2020/png/328360/1582801844914-777456db-d407-426d-848b-663c8a6e135d.png#align=left&display=inline&height=236&name=image.png&originHeight=472&originWidth=2692&size=453765&status=done&style=none&width=1346" alt="image.png"><br>    看代码，调用的是com.baomidou.mybatisplus的getOne方法，第一感觉没有什么问题，但是getOne查询一条为什么会把所有的结果查出来呢。带着这个问题继续往下看。<br>    queryWrapper里面只有一个条件，就是接口传进来的 timeStamp=0<br><img src="https://cdn.nlark.com/yuque/0/2020/png/328360/1582801855288-57546604-a3c6-4ef2-b5db-05b404feb2ac.png#align=left&display=inline&height=113&name=image.png&originHeight=226&originWidth=1030&size=336358&status=done&style=none&width=515" alt="image.png"><br>查了一下数据库，这个条件下会有 差不多30 万 条数据。如果同时有多个并发的请求，就会导致oom,而且这个表的数据量增长比较快，如果不处理，后面oom的间隔会越来越快<br><img src="https://cdn.nlark.com/yuque/0/2020/png/328360/1582801871863-f684195f-4aa4-4231-836f-35d4bb301e2d.png#align=left&display=inline&height=128&name=image.png&originHeight=256&originWidth=1254&size=101979&status=done&style=shadow&width=627" alt="image.png"></p>
+<h5 id="2-com-baomidou-mybatis-plus框架的副作用"><a href="#2-com-baomidou-mybatis-plus框架的副作用" class="headerlink" title="2.com.baomidou.mybatis-plus框架的副作用"></a>2.com.baomidou.mybatis-plus框架的副作用</h5><pre><code>数据库有30万条数据，但是使用com.baomidou.mybatis-plus框架的getOne方法,还是查出了所有的数据。带着这个问题，看了一下它的源码。</code></pre><p><img src="https://cdn.nlark.com/yuque/0/2020/png/328360/1582801922539-3bff574e-1a64-4663-a4be-7feb0b999717.png#align=left&display=inline&height=223&name=image.png&originHeight=446&originWidth=1922&size=387562&status=done&style=none&width=961" alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/328360/1582801904972-3ebf32ff-f014-4b77-bfdd-4ceccfa1d3c4.png#align=left&display=inline&height=358&name=image.png&originHeight=716&originWidth=2496&size=607226&status=done&style=none&width=1248" alt="image.png"></p>
+<pre><code>这个框架的源码也比较简单，到这里就明白了，getOne默认情况下是当查询结果有多个 result 时不抛出异常。会把所有的结果查出来，然后取第一条。这样就引发了这次的问题。</code></pre><h1 id="3-结论与思考"><a href="#3-结论与思考" class="headerlink" title="3.结论与思考"></a>3.结论与思考</h1><ol>
+<li><p>写代码尽量要严谨，尽量少的使用一些封装过于完善的框架，可能会隐藏一些细节，比如之前很多漏洞的struts。不太熟悉的情况下使用会产生一些很严重的副作用。</p>
+</li>
+<li><p>一定要避免没有limit的全量查询，对于查询大量数据处理的场景，一定要分批次处理，对内存使用最好有个比较初步的预估。</p>
+</li>
+</ol>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章指出任何有错误或不够清晰的表达。欢迎邮件讨论 scdxcc@gmail.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>mybatis-plus使用不当导致的oom</p>
+    
+    <p><span class="copy-title">本文作者:</span><a  title="Cheng Chen">Cheng Chen</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-06-19, 19:37:00</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-06, 18:47:54</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/06/19/mybatis-plus%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%BD%93%E5%AF%BC%E8%87%B4%E7%9A%84oom/" title="mybatis-plus使用不当导致的oom">https://jmw.wiki/2019/06/19/mybatis-plus%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%BD%93%E5%AF%BC%E8%87%B4%E7%9A%84oom/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '',
+            clientSecret: '',
+            repo: 'scdxcc.github.io',
+            owner: 'scdxcc',
+            admin: ['scdxcc'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2014-2020 scucc</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#java','#jdk','#oom','#hibernate','#jpa','#javaWeb','#jsp','#xml','#http','#mysql','#lock','#maven','#shell','#SOA','#service mesh','#微服务','#svn',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #100e0e;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #434346;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
