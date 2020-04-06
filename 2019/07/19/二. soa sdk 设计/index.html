@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Hexo</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="Hexo">
+  <title>service mesh业界架构分析 | Hexo</title>
+  <meta name="keywords" content=" SOA , service mesh , 微服务 ">
+  <meta name="description" content="service mesh业界架构分析 | Hexo">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="var QZONE &#x3D; window.QZONE || {}; 	function imagezoom(imgobj, box_w, box_h) { 		var src_w &#x3D; imgobj.width; 		var src_h &#x3D; imgobj.height; 		var r1 &#x3D; src_w &#x2F; src_h, r2 &#x3D; box_w &#x2F; box_h; 		v">
 <meta property="og:type" content="website">
@@ -54,7 +54,7 @@
 </div>
 
 <body>
-<aside class="nav mobile">
+<aside class="nav">
     <div class="nav-left">
         <a href="/" class="avatar_target">
     <img class="avatar" src="/img/avatar.jpg" />
@@ -517,12 +517,70 @@
         </div>
     </div>
 </aside>
-<div class="post index">
+<div class="post">
     <div class="pjax">
-        <article class="index">
-            <div class="toc-ref">
+        <article id="post-二. soa sdk 设计" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#我的博客"><span class="toc-text">我的博客</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#博客的内容"><span class="toc-text">博客的内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#欢迎光临"><span class="toc-text">欢迎光临</span></a></li></ol></li></ol>
+        <h1 class="article-title">service mesh业界架构分析</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="SOA">SOA</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color4">SOA</a>
+            
+            <a class="color3">service mesh</a>
+            
+            <a class="color4">微服务</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-04-06 19:09:11'>2019-07-19 19:37</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#二-soa-sdk-设计"><span class="toc-text">二. soa sdk 设计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#一-整体架构"><span class="toc-text">一. 整体架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#我们的soa框架设计更接近于唯品会的架构-和istio相比的主要的特点："><span class="toc-text">我们的soa框架设计更接近于唯品会的架构,和istio相比的主要的特点：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-consumer-端有sdk-同时也会有sidecar"><span class="toc-text">1. consumer 端有sdk,同时也会有sidecar.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-provider-端有sdk-没有sidecar"><span class="toc-text">2. provider 端有sdk,没有sidecar.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-sidecar-分为本地和远程，实现高可用。"><span class="toc-text">3. sidecar 分为本地和远程，实现高可用。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-sidecar-使用go实现。"><span class="toc-text">4. sidecar 使用go实现。</span></a></li></ol></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -535,18 +593,36 @@
     }
 </style>
 </div>
-            <h1 id="我的博客"><a href="#我的博客" class="headerlink" title="我的博客"></a>我的博客</h1><h2 id="博客的内容"><a href="#博客的内容" class="headerlink" title="博客的内容"></a>博客的内容</h2><p>技术成长路上的一点一滴的积累，以及生活中的一些思考。</p>
-<h2 id="欢迎光临"><a href="#欢迎光临" class="headerlink" title="欢迎光临"></a>欢迎光临</h2><p>希望可以相互学习，共同成长。</p>
-<p>到目前为止已经写了<code class="article_number"></code>篇文章， 共<code class="site_word_count"></code>字。</p>
-<p>本站访问人数：<code class="site_uv"></code>人次 ， 访问量：<code class="site_pv"></code>次</p>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="二-soa-sdk-设计"><a href="#二-soa-sdk-设计" class="headerlink" title="二. soa sdk 设计"></a>二. soa sdk 设计</h1><h1 id="一-整体架构"><a href="#一-整体架构" class="headerlink" title="一. 整体架构"></a>一. 整体架构</h1><h2 id="我们的soa框架设计更接近于唯品会的架构-和istio相比的主要的特点："><a href="#我们的soa框架设计更接近于唯品会的架构-和istio相比的主要的特点：" class="headerlink" title="我们的soa框架设计更接近于唯品会的架构,和istio相比的主要的特点："></a>我们的soa框架设计更接近于唯品会的架构,和istio相比的主要的特点：</h2><h4 id="1-consumer-端有sdk-同时也会有sidecar"><a href="#1-consumer-端有sdk-同时也会有sidecar" class="headerlink" title="1. consumer 端有sdk,同时也会有sidecar."></a>1. consumer 端有sdk,同时也会有sidecar.</h4><pre><code>  这样做的缺点是不够透明。客户端还是需要依赖sdk,有改造的成本。优点是如果和istio一样完全依赖IPTable，性能比较差。加入SDK可以支持Local sidecar与Remote sidecar的切换，实现高可用。</code></pre><h4 id="2-provider-端有sdk-没有sidecar"><a href="#2-provider-端有sdk-没有sidecar" class="headerlink" title="2. provider 端有sdk,没有sidecar."></a>2. provider 端有sdk,没有sidecar.</h4><pre><code>   这样做的缺点同样是不够透明，但是由于soa大部分的功能如lb,route是在consumer端实现。provider端的功能相对较少，主要是服务注册和代理调用。所以没有再多加一层，导致性能损失。</code></pre><h4 id="3-sidecar-分为本地和远程，实现高可用。"><a href="#3-sidecar-分为本地和远程，实现高可用。" class="headerlink" title="3. sidecar 分为本地和远程，实现高可用。"></a>3. sidecar 分为本地和远程，实现高可用。</h4><pre><code>   当本地sidecar不可用时，导致业务不可用是不能容忍的，所以还会有远程的sidecar集群.可以在本地sidecar和远程sidecar集群之间做无感切换，这也是sdk的一个好处。</code></pre><h4 id="4-sidecar-使用go实现。"><a href="#4-sidecar-使用go实现。" class="headerlink" title="4. sidecar 使用go实现。"></a>4. sidecar 使用go实现。</h4><pre><code>jvm 资源消耗较大，不依赖于容器，借助inf-agent部署到consumer机器上。    </code></pre><p><img src="https://cdn.nlark.com/yuque/0/2019/png/328360/1557476319659-255912a9-103c-453a-93b1-c1ec99d56c3d.png#align=left&display=inline&height=382&name=neo%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84.png&originHeight=670&originWidth=1307&size=63898&status=done&style=none&width=746" alt="neo整体架构.png"></p>
 
-        </article>
-        
-        <p>
-            <a  class="dashang" onclick="dashangToggle()">赏</a>
-        </p>
-        
-        
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章指出任何有错误或不够清晰的表达。欢迎邮件讨论 scdxcc@gmail.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>service mesh业界架构分析</p>
+    
+    <p><span class="copy-title">本文作者:</span><a  title="Cheng Chen">Cheng Chen</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-07-19, 19:37:00</p>
+    <p><span class="copy-title">最后更新:</span>2020-04-06, 19:09:11</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/07/19/%E4%BA%8C.%20soa%20sdk%20%E8%AE%BE%E8%AE%A1/" title="service mesh业界架构分析">https://jmw.wiki/2019/07/19/%E4%BA%8C.%20soa%20sdk%20%E8%AE%BE%E8%AE%A1/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
     <div id="comments"></div>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
 
@@ -566,6 +642,13 @@
         gitalk.render('comments')
     })
 </script>
+
+
+
+
+    
+
+
 
 
     </div>

@@ -33,6 +33,35 @@
     
     
     <entry>
+      <title>service mesh业界架构分析</title>
+      <link href="/2019/07/19/%E4%BA%8C.%20soa%20sdk%20%E8%AE%BE%E8%AE%A1/"/>
+      <url>/2019/07/19/%E4%BA%8C.%20soa%20sdk%20%E8%AE%BE%E8%AE%A1/</url>
+      
+        <content type="html"><![CDATA[<h1 id="二-soa-sdk-设计"><a href="#二-soa-sdk-设计" class="headerlink" title="二. soa sdk 设计"></a>二. soa sdk 设计</h1><h1 id="一-整体架构"><a href="#一-整体架构" class="headerlink" title="一. 整体架构"></a>一. 整体架构</h1><h2 id="我们的soa框架设计更接近于唯品会的架构-和istio相比的主要的特点："><a href="#我们的soa框架设计更接近于唯品会的架构-和istio相比的主要的特点：" class="headerlink" title="我们的soa框架设计更接近于唯品会的架构,和istio相比的主要的特点："></a>我们的soa框架设计更接近于唯品会的架构,和istio相比的主要的特点：</h2><h4 id="1-consumer-端有sdk-同时也会有sidecar"><a href="#1-consumer-端有sdk-同时也会有sidecar" class="headerlink" title="1. consumer 端有sdk,同时也会有sidecar."></a>1. consumer 端有sdk,同时也会有sidecar.</h4><pre><code>  这样做的缺点是不够透明。客户端还是需要依赖sdk,有改造的成本。优点是如果和istio一样完全依赖IPTable，性能比较差。加入SDK可以支持Local sidecar与Remote sidecar的切换，实现高可用。</code></pre><h4 id="2-provider-端有sdk-没有sidecar"><a href="#2-provider-端有sdk-没有sidecar" class="headerlink" title="2. provider 端有sdk,没有sidecar."></a>2. provider 端有sdk,没有sidecar.</h4><pre><code>   这样做的缺点同样是不够透明，但是由于soa大部分的功能如lb,route是在consumer端实现。provider端的功能相对较少，主要是服务注册和代理调用。所以没有再多加一层，导致性能损失。</code></pre><h4 id="3-sidecar-分为本地和远程，实现高可用。"><a href="#3-sidecar-分为本地和远程，实现高可用。" class="headerlink" title="3. sidecar 分为本地和远程，实现高可用。"></a>3. sidecar 分为本地和远程，实现高可用。</h4><pre><code>   当本地sidecar不可用时，导致业务不可用是不能容忍的，所以还会有远程的sidecar集群.可以在本地sidecar和远程sidecar集群之间做无感切换，这也是sdk的一个好处。</code></pre><h4 id="4-sidecar-使用go实现。"><a href="#4-sidecar-使用go实现。" class="headerlink" title="4. sidecar 使用go实现。"></a>4. sidecar 使用go实现。</h4><pre><code>jvm 资源消耗较大，不依赖于容器，借助inf-agent部署到consumer机器上。    </code></pre><p><img src="https://cdn.nlark.com/yuque/0/2019/png/328360/1557476319659-255912a9-103c-453a-93b1-c1ec99d56c3d.png#align=left&display=inline&height=382&name=neo%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84.png&originHeight=670&originWidth=1307&size=63898&status=done&style=none&width=746" alt="neo整体架构.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> SOA </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> SOA </tag>
+            
+            <tag> service mesh </tag>
+            
+            <tag> 微服务 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>JPA hibernate导致的 oom问题</title>
       <link href="/2019/06/19/JPA%20hibernate%E5%AF%BC%E8%87%B4%E7%9A%84%20oom%E9%97%AE%E9%A2%98/"/>
       <url>/2019/06/19/JPA%20hibernate%E5%AF%BC%E8%87%B4%E7%9A%84%20oom%E9%97%AE%E9%A2%98/</url>
